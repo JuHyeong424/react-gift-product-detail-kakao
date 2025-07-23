@@ -1,38 +1,28 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { PriceButton } from './OrderButton.style';
+import { useFormContext } from 'react-hook-form';
+import useOrderSubmit from '@/hooks/order/useOrderSubmit';
 
-interface UseInfiniteScrollObserverOptions {
-  fetchNextPage: () => void;
-  hasMore: boolean;
+interface Props {
+  product: { id: number; name: string; price: number };
   loading: boolean;
-  threshold?: number;
+  error: unknown;
+  count: number;
+  receiverForm: {
+    submittedRef: React.MutableRefObject<{ name: string; phone: string; count: number }[] | null>;
+  };
 }
 
-export default function useInfiniteScrollObserver({
-  fetchNextPage,
-  hasMore,
-  loading,
-  threshold = 0.1,
-}: UseInfiniteScrollObserverOptions) {
-  const observerRef = useRef<HTMLDivElement>(null);
+export default function OrderButton({ product, loading, error, count, receiverForm }: Props) {
+  const { handleSubmit } = useFormContext();
+  const onSubmit = useOrderSubmit({ product, count, receiverRef: receiverForm.submittedRef });
 
-  const handleObserver = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      const target = entries[0];
-      if (target.isIntersecting && hasMore && !loading) {
-        fetchNextPage();
-      }
-    },
-    [fetchNextPage, hasMore, loading],
+  if (error) return null;
+  if (!product) return <div>상품 정보가 없습니다.</div>;
+  const price = product.price * count;
+
+  return loading ? (
+    <div>상품 정보를 불러올 수 없습니다.</div>
+  ) : (
+    <PriceButton onClick={handleSubmit(onSubmit)}>{price}원 주문하기</PriceButton>
   );
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(handleObserver, { threshold });
-    const current = observerRef.current;
-    if (current) observer.observe(current);
-    return () => {
-      if (current) observer.unobserve(current);
-    };
-  }, [handleObserver, threshold]);
-
-  return observerRef;
 }

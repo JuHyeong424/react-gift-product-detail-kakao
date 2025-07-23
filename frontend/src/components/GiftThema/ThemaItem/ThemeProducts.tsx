@@ -54,7 +54,7 @@ export default function ThemeProducts({ themeId }: number) {
             ))}
           </ProductsList>
 
-          <div ref={observerRef} style={{ height: '1px' }} />
+          <div ref={observerRef} style={{ height: '50px' }} />
         </>
       )}
     </ThemeProductsWrapper>
