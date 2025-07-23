@@ -10,11 +10,11 @@ interface Item {
 }
 
 export default function useFetchProductData(id: number) {
-  const { data, loading, error } = useFetchData<Item>(PRODUCT_SUMMARY_URL(id));
+  const { data, isLoading, error } = useFetchData<Item>(['product', id], PRODUCT_SUMMARY_URL(id));
 
   return {
-    product: data,
-    loading,
+    product: data?.data,
+    loading: isLoading,
     error,
   };
 }

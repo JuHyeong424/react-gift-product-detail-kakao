@@ -8,11 +8,11 @@ interface Theme {
 }
 
 export default function useFetchThemes() {
-  const { data: themes, loading, error } = useFetchData<Theme>(THEME_URL);
+  const { data, isLoading, error } = useFetchData<Theme>(['themes'], THEME_URL);
 
   return {
-    themes,
-    loading,
+    themes: data?.data,
+    loading: isLoading,
     error,
   };
 }
