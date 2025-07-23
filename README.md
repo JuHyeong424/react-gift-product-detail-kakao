@@ -17,6 +17,8 @@ npm install
 
 npm install -D vite
 
+#### env
+local주소/api 추가
 
 #
 
