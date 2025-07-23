@@ -18,7 +18,7 @@ export interface Product {
 }
 
 export default function useFetchRanking(targetType: string, rankType: string) {
-  const { data, isLoading, error } = useFetchData<Product>(
+  const { data, isLoading } = useFetchData<Product>(
     ['ranking', targetType, rankType],
     RANKING_URL,
     {
@@ -30,6 +30,5 @@ export default function useFetchRanking(targetType: string, rankType: string) {
   return {
     ranking: data?.data,
     loading: isLoading,
-    error,
   };
 }

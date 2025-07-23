@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
-import Home from '@/pages/Home';
 import Login from '@/pages/Login/Login';
 import globalStyle from '@/styles/global';
 import { theme } from '@/styles/theme';
@@ -11,8 +10,17 @@ import My from '@/pages/My/My.tsx';
 import Order from '@/pages/Order/Order.tsx';
 import ThemeItems from '@/pages/ThemeItem/ThemeItems.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Home from '@/pages/Home.tsx';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+      useErrorBoundary: true,
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
 
 const App = () => {
   return (

@@ -5,5 +5,8 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.83.0"
   }
 }

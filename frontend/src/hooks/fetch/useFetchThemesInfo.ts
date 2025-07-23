@@ -11,11 +11,10 @@ interface ThemeInfo {
 
 export default function useFetchThemesInfo(themesId: number) {
   const url = THEMES_INFO(themesId);
-  const { data, isLoading, error } = useFetchData<ThemeInfo>(['themesInfo', themesId], url);
+  const { data, error } = useFetchData<ThemeInfo>(['themesInfo', themesId], url);
 
   return {
     themeInfo: data?.data,
-    loading: isLoading,
     error,
     statusCode: data?.statusCode,
   };

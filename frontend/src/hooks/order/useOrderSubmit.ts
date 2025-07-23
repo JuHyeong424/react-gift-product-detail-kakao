@@ -20,12 +20,7 @@ export default function useOrderSubmit({ product, count, receiverRef }: UseOrder
     mutationFn: (orderData: OrderRequest) => order(orderData),
     onSuccess: (_, variables) => {
       toast(
-        renderOrderSuccessToast(
-          product.name,
-          count,
-          variables.ordererName,
-          variables.message
-        ),
+        renderOrderSuccessToast(product.name, count, variables.ordererName, variables.message),
         {
           type: 'success',
           autoClose: 3000,

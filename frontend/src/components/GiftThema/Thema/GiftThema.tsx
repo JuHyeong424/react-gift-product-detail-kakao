@@ -3,15 +3,17 @@ import {
   Section,
   ThemeListContainer,
   YellowBox,
-  Loading,
 } from '@/components/GiftThema/Thema/GiftThema.styles.ts';
 import ThemeItem from '@/components/GiftThema/Thema/ThemeItem.tsx';
 import useFetchThemes from '@/hooks/fetch/useFetchThemes.ts';
 import { useNavigate } from 'react-router-dom';
+import { Suspense } from 'react';
+import Loading from '@/components/Common/Loading/Loading.tsx';
+import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
 
 export default function GiftThema() {
   const navigate = useNavigate();
-  const { themes, loading, error } = useFetchThemes();
+  const { themes, error } = useFetchThemes();
 
   if (error || !Array.isArray(themes) || themes.length === 0) {
     return null;
@@ -25,20 +27,20 @@ export default function GiftThema() {
     <Section>
       <Title>선물 테마</Title>
 
-      {loading ? (
-        <Loading>로딩 중...</Loading>
-      ) : (
-        <ThemeListContainer>
-          {themes.map((item) => (
-            <ThemeItem
-              key={item.themeId}
-              image={item.image}
-              name={item.name}
-              onClick={() => onThemesClickHandle(item)}
-            />
-          ))}
-        </ThemeListContainer>
-      )}
+      <ErrorBoundary fallback={<div>에러 발생</div>}>
+        <Suspense fallback={<Loading />}>
+          <ThemeListContainer>
+            {themes.map((item) => (
+              <ThemeItem
+                key={item.themeId}
+                image={item.image}
+                name={item.name}
+                onClick={() => onThemesClickHandle(item)}
+              />
+            ))}
+          </ThemeListContainer>
+        </Suspense>
+      </ErrorBoundary>
 
       <YellowBox>
         <div>카카오테크 캠퍼스 3기 여러분</div>
