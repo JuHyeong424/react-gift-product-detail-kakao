@@ -1,4 +1,3 @@
-
 import ItemInfo from '@/components/Order/ItemInfo/ItemInfo.tsx';
 import Header from '@/components/Header/Header.tsx';
 import { useEffect, useState } from 'react';
@@ -54,7 +53,13 @@ export default function Order() {
         <Sender />
         <Receiver setCount={setCount} receiverForm={receiverForm} />
         <ItemInfo product={product} loading={loading} error={error} />
-        <OrderButton product={product} loading={loading} error={error} count={count} receiverForm={receiverForm} />
+        <OrderButton
+          product={product}
+          loading={loading}
+          error={error}
+          count={count}
+          receiverForm={receiverForm}
+        />
       </FormProvider>
     </Wrapper>
   );

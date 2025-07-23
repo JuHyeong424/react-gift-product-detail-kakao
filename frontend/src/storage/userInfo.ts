@@ -4,7 +4,10 @@ export const saveUserInfo = (data: { email: string; name: string; authToken: str
 
 export const getUserInfo = () => {
   const stored = localStorage.getItem('userInfo');
-  return stored ? JSON.parse(stored) : null;
+  if (!stored) return null;
+
+  const parsed = JSON.parse(stored);
+  return parsed.data ? parsed.data : parsed;
 };
 
 export const clearUserInfo = () => {

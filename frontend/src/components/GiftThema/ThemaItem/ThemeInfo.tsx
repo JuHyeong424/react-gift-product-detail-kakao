@@ -8,7 +8,6 @@ import {
 } from '@/components/GiftThema/ThemaItem/ThemeProducts.styles.ts';
 
 export default function ThemeInfo({ error, themeInfo }) {
-
   return (
     <ThemeInfoWrapper>
       {error || !themeInfo ? (

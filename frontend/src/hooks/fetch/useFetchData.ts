@@ -17,8 +17,7 @@ export default function useFetchData<T>(url: string, params?: Record<string, any
       } catch (e) {
         const error = e as AxiosError<{ message: string }>;
         setStatusCode(error.response?.status || null);
-        const errorMessage =
-          error.response?.data?.data.message || DEFAULT_ERROR_MESSAGE;
+        const errorMessage = error.response?.data?.data.message || DEFAULT_ERROR_MESSAGE;
         setError(errorMessage);
       } finally {
         setLoading(false);
