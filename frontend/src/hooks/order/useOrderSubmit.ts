@@ -72,6 +72,6 @@ export default function useOrderSubmit({ product, count, receiverRef }: UseOrder
       })),
     };
 
-    mutation.mutate(orderData);
+    await mutation.mutateAsync(orderData);
   };
 }
