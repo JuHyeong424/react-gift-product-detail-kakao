@@ -10,10 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import My from '@/pages/My/My.tsx';
 import Order from '@/pages/Order/Order.tsx';
 import ThemeItems from '@/pages/ThemeItem/ThemeItems.tsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
         <BrowserRouter>
@@ -28,7 +31,7 @@ const App = () => {
         </BrowserRouter>
       </ThemeProvider>
       <ToastContainer position="top-center" />
-    </>
+    </QueryClientProvider>
   );
 };
 
