@@ -1,7 +1,7 @@
 import ItemInfo from '@/components/Order/ItemInfo/ItemInfo.tsx';
 import Header from '@/components/Header/Header.tsx';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Receiver from '@/components/Order/Receiver/Receiver.tsx';
 import Message from '@/components/Order/Message/Message.tsx';
 import OrderButton from '@/components/Order/OrderButton/OrderButton.tsx';
@@ -15,7 +15,6 @@ import useFetchProductData from '@/hooks/fetch/useFetchProductData.ts';
 import useErrorRedirect from '@/hooks/order/useErrorRedirect.ts';
 
 export default function Order() {
-  const navigate = useNavigate();
   const params = useParams<{ id: string }>();
   const id = Number(params.id);
 

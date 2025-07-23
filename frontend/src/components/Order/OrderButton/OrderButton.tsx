@@ -15,10 +15,10 @@ interface Props {
 export default function OrderButton({ product, loading, error, count, receiverForm }: Props) {
   const { handleSubmit } = useFormContext();
   const onSubmit = useOrderSubmit({ product, count, receiverRef: receiverForm.submittedRef });
-  const price = product.price * count;
 
   if (error) return null;
   if (!product) return <div>상품 정보가 없습니다.</div>;
+  const price = product.price * count;
 
   return loading ? (
     <div>상품 정보를 불러올 수 없습니다.</div>
