@@ -7,12 +7,12 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.gray00};
-  padding: 0 20px;
+  padding: ${({ theme }) => `${theme.spacing.spacing0} ${theme.spacing.spacing5}`};
 `;
 
 export const LogoImg = styled.img`
-  width: 100px;
-  margin-bottom: 32px;
+  width: ${({ theme }) => theme.spacing.spacing100};
+  margin-bottom: ${({ theme }) => theme.spacing.spacing8};
 `;
 
 export const InputWrapper = styled.div`
@@ -20,13 +20,13 @@ export const InputWrapper = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.spacing3};
   margin-bottom: ${({ theme }) => theme.spacing.spacing6};
-  width: 420px;
+  width: ${({ theme }) => theme.spacing.spacing420};
 `;
 
 export const StyledInput = styled.input`
-  height: 44px;
-  padding: 0 12px;
-  font-size: 15px;
+  height: ${({ theme }) => theme.spacing.spacing11};
+  padding: ${({ theme }) => `${theme.spacing.spacing0} ${theme.spacing.spacing3}`};
+  font-size: ${({ theme }) => theme.spacing.spacing4};
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray400};
   outline: none;
@@ -43,24 +43,24 @@ export const StyledInput = styled.input`
 
 export const Alert = styled.span`
   color: ${({ theme }) => theme.colors.red700};
-  font-size: 15px;
+  font-size: ${({ theme }) => theme.spacing.spacing4};
 `;
 
 export const LoginButton = styled.button`
-  width: 420px;
+  width: ${({ theme }) => theme.spacing.spacing420};
   border: none;
-  border-radius: 6px;
-  background-color: #fee500;
+  border-radius: ${({ theme }) => theme.spacing.spacing1_5};
+  background-color: ${({ theme }) => theme.colors.yellow500};
   ${({ theme }) => theme.colors.semantic.brand.kakaoYellow};
   font-weight: bold;
-  font-size: 15px;
+  font-size: ${({ theme }) => theme.spacing.spacing4};
   cursor: pointer;
 
   text-decoration: none;
   color: ${({ theme }) => theme.colors.gray1000};
   display: block;
   height: 100%;
-  line-height: 44px;
+  line-height: ${({ theme }) => theme.spacing.spacing11};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.semantic.brand.kakaoYellowHover};

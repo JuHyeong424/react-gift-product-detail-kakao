@@ -3,34 +3,34 @@ import styled from '@emotion/styled';
 export const ItemImageWrapper = styled.div`
   display: flex;
   border: 1px solid ${({ theme }) => theme.colors.gray500};
-  border-radius: 5px;
-  padding: 15px;
-  margin-bottom: 50px;
+  border-radius: ${({ theme }) => theme.spacing.spacing1};
+  padding: ${({ theme }) => theme.spacing.spacing3_5};
+  margin-bottom: ${({ theme }) => theme.spacing.spacing12_5};
 `;
 
 export const ItemImage = styled.div`
   img {
-    height: 70px;
-    margin-right: 20px;
+    height: ${({ theme }) => theme.spacing.spacing16_70};
+    margin-right: ${({ theme }) => theme.spacing.spacing5};
   }
 `;
 
 export const ItemName = styled.div`
-  font-size: 15px;
-  margin-bottom: 1px;
+  font-size: ${({ theme }) => theme.spacing.spacing3_5};
+  margin-bottom: ${({ theme }) => theme.spacing.spacing1_2_5};
 `;
 
 export const ItemBrand = styled.div`
-  font-size: 13px;
-  color: gray;
-  margin-bottom: 10px;
+  font-size: ${({ theme }) => theme.spacing.spacing3};
+  color: ${({ theme }) => theme.colors.gray700};
+  margin-bottom: ${({ theme }) => theme.spacing.spacing2_5};
 `;
 
 export const ItemPrice = styled.div`
   font-weight: bold;
 
   span {
-    color: gray;
+    color: ${({ theme }) => theme.colors.gray700};
     font-weight: normal;
   }
 `;

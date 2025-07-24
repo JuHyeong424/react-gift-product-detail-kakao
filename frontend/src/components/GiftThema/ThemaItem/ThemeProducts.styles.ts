@@ -4,14 +4,14 @@ export const ThemeProductsWrapper = styled.div<{ error; product }>`
   min-height: ${({ error, product }) =>
     error || product === 0 ? `calc(100vh - 144px - 56px)` : '100vh'};
   background-color: ${({ theme }) => theme.colors.gray00};
-  padding: 0 20px;
+  padding: ${({ theme }) => ` ${theme.spacing.spacing0} ${theme.spacing.spacing5}`};
 `;
 
 export const ProductsList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  padding: 20px 0;
+  gap: ${({ theme }) => theme.spacing.spacing4};
+  padding: ${({ theme }) => ` ${theme.spacing.spacing5} ${theme.spacing.spacing0}`};
 `;
 
 export const ProductsLoading = styled.div`
@@ -19,8 +19,8 @@ export const ProductsLoading = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 30px;
-  margin: 40px 0;
+  font-size: ${({ theme }) => theme.spacing.spacing7_5};
+  margin: ${({ theme }) => ` ${theme.spacing.spacing10} ${theme.spacing.spacing0}`};
 `;
 
 export const ProductsError = styled.div`
@@ -28,6 +28,6 @@ export const ProductsError = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 30px;
-  padding: 50px 0;
+  font-size: ${({ theme }) => theme.spacing.spacing7_5};
+  padding: ${({ theme }) => ` ${theme.spacing.spacing12_5} ${theme.spacing.spacing0}`};
 `;

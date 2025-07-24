@@ -5,6 +5,6 @@ export const CommonLoading = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 30px;
-  margin: 40px 0;
+  font-size: ${({ theme }) => theme.spacing.spacing7_5};
+  margin: ${({ theme }) => `${theme.spacing.spacing10} ${theme.spacing.spacing0}`};
 `;

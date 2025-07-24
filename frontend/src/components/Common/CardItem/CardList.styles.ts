@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { RANKING_IN_THREE } from '@/constants/RankingConstants.ts';
 
 export const Card = styled.div`
-  background: #fff;
+  background: ${({ theme }) => theme.colors.gray00};
 
   &:hover {
     cursor: pointer;
@@ -15,15 +15,15 @@ export const ImageWrapper = styled.div`
 
 export const RankBadge = styled.div<{ rank: number }>`
   position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 24px;
-  height: 24px;
-  border-radius: 5px;
-  font-size: 13px;
+  top: ${({ theme }) => theme.spacing.spacing2};
+  left: ${({ theme }) => theme.spacing.spacing2};
+  width: ${({ theme }) => theme.spacing.spacing6};
+  height: ${({ theme }) => theme.spacing.spacing6};
+  border-radius: ${({ theme }) => theme.spacing.spacing1};
+  font-size: ${({ theme }) => theme.spacing.spacing3};
   font-weight: bold;
   color: ${({ theme }) => theme.colors.gray00};
-  background-color: ${({ rank }) => (rank <= RANKING_IN_THREE ? '#ff3b30' : '#888')};
+  background-color: ${({ rank, theme }) => (rank <= RANKING_IN_THREE ? theme.colors.red800 : theme.colors.gray700)};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,27 +32,27 @@ export const RankBadge = styled.div<{ rank: number }>`
 
 export const ProductImage = styled.img`
   width: 100%;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.spacing.spacing2};
   object-fit: cover;
   aspect-ratio: 1;
 `;
 
 export const BrandName = styled.div`
-  margin-top: 8px;
-  font-size: 13px;
-  color: #888;
+  margin-top: ${({ theme }) => theme.spacing.spacing2};
+  font-size: ${({ theme }) => theme.spacing.spacing3};
+  color: ${({ theme }) => theme.colors.gray700};
 `;
 
 export const ProductName = styled.div`
-  margin-top: 4px;
-  font-size: 15px;
+  margin-top: ${({ theme }) => theme.spacing.spacing1};
+  font-size: ${({ theme }) => theme.spacing.spacing4};
   font-weight: 500;
-  color: #333;
+  color: ${({ theme }) => theme.colors.gray900};
 `;
 
 export const Price = styled.div`
-  margin-top: 6px;
-  font-size: 15px;
+  margin-top: ${({ theme }) => theme.spacing.spacing1_5};
+  font-size: ${({ theme }) => theme.spacing.spacing4};
   font-weight: bold;
-  color: #000;
+  color: ${({ theme }) => theme.colors.gray1000};
 `;

@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 
 export const ReceiverWrapper = styled.div`
-  margin: 10px 0;
-  padding: 10px 15px 20px 15px;
+  margin: ${({ theme }) => `${theme.spacing.spacing2_5} ${theme.spacing.spacing0}`};
+  padding: ${({ theme }) =>
+    `${theme.spacing.spacing2_5} ${theme.spacing.spacing4} ${theme.spacing.spacing5} ${theme.spacing.spacing4}`};
   background-color: ${({ theme }) => theme.colors.gray00};
 `;
 
@@ -10,20 +11,20 @@ export const TitleButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: ${({ theme }) => theme.spacing.spacing2_5};
 `;
 
 export const RecevierTitle = styled.p`
   font-weight: bold;
-  font-size: 17px;
+  font-size: ${({ theme }) => theme.spacing.spacing4_5};
 `;
 
 export const ReceiverAddBtn = styled.button`
   background-color: ${({ theme }) => theme.colors.gray200};
-  width: 55px;
-  height: 35px;
+  width: ${({ theme }) => theme.spacing.spacing14};
+  height: ${({ theme }) => theme.spacing.spacing9};
   border: none;
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.spacing.spacing2_5};
   cursor: pointer;
 
   &:hover {
@@ -37,8 +38,8 @@ export const ReceiverInfo = styled.div`
   justify-content: center;
   flex-direction: column;
   border: 1px solid ${({ theme }) => theme.colors.gray500};
-  border-radius: 5px;
-  padding: 40px;
+  border-radius: ${({ theme }) => theme.spacing.spacing1_5};
+  padding: ${({ theme }) => theme.spacing.spacing10};
 
   p {
     color: ${({ theme }) => theme.colors.gray500};
@@ -61,43 +62,43 @@ export const BaseContainer = styled.div`
   transform: translate(-50%, -50%);
 
   width: 90vw;
-  max-width: 600px;
+  max-width: ${({ theme }) => theme.spacing.spacing600};
   height: 90vh;
-  max-height: 650px;
+  max-height: ${({ theme }) => theme.spacing.spacing650};
 
   background-color: white;
   z-index: 2;
-  padding: 20px 30px;
-  border-radius: 10px;
+  padding: ${({ theme }) => `${theme.spacing.spacing5} ${theme.spacing.spacing7_5}`};
+  border-radius: ${({ theme }) => theme.spacing.spacing2_5};
 `;
 
 export const ModalTitle = styled.h3`
-  margin-bottom: 10px;
+  margin-bottom: ${({ theme }) => theme.spacing.spacing2_5};
 `;
 
 export const ModalText = styled.p`
   color: ${({ theme }) => theme.colors.gray800};
-  font-size: 13px;
-  margin-bottom: 5px;
+  font-size: ${({ theme }) => theme.spacing.spacing3_5};
+  margin-bottom: ${({ theme }) => theme.spacing.spacing1};
 `;
 
 export const ModalAddBtn = styled.button`
   background-color: ${({ theme }) => theme.colors.gray300};
   border: none;
-  width: 80px;
-  height: 34px;
-  border-radius: 5px;
+  width: ${({ theme }) => theme.spacing.spacing17};
+  height: ${({ theme }) => theme.spacing.spacing8_5};
+  border-radius: ${({ theme }) => theme.spacing.spacing1_5};
   cursor: pointer;
 `;
 
 export const ModalBottomBtn = styled.div`
   position: absolute;
-  bottom: 20px;
+  bottom: ${({ theme }) => theme.spacing.spacing5};
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: ${({ theme }) => theme.spacing.spacing2_5};
   width: 100%;
 `;
 
@@ -112,29 +113,29 @@ export const ModalCancleBtn = styled.button`
 export const ModalFinishBtn = styled.button`
   width: 60%;
   border: none;
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.spacing.spacing2_5};
   background-color: ${({ theme }) => theme.colors.yellow500};
   cursor: pointer;
 `;
 export const ReceiverForm = styled.form`
-  margin: 10px 0;
+  margin: ${({ theme }) => `${theme.spacing.spacing2_5} ${theme.spacing.spacing0}`};
   width: 100%;
   max-height: 55vh;
   overflow: auto;
 `;
 
 export const InfoList = styled.div<{ isLast?: boolean }>`
-  margin: 10px 0;
+  margin: ${({ theme }) => `${theme.spacing.spacing2_5} ${theme.spacing.spacing0}`};
   border-bottom: ${({ isLast, theme }) => (isLast ? 'none' : `1px solid ${theme.colors.gray300}`)};
 `;
 
 export const ReceiverIndex = styled.div`
-  margin: 5px 0;
+  margin: ${({ theme }) => `${theme.spacing.spacing1} ${theme.spacing.spacing0}`};
 
   span {
-    font-size: 15px;
+    font-size: ${({ theme }) => theme.spacing.spacing4};
     font-weight: bold;
-    margin-right: 5px;
+    margin-right: ${({ theme }) => theme.spacing.spacing1_5};
   }
 
   button {
@@ -147,10 +148,10 @@ export const ReceiverItem = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  margin: 10px 0;
+  margin: ${({ theme }) => `${theme.spacing.spacing2_5} ${theme.spacing.spacing0}`};
 
   span {
-    width: 100px;
+    width: ${({ theme }) => theme.spacing.spacing100};
   }
 `;
 
@@ -160,18 +161,18 @@ export const ItemInput = styled.div`
   width: 100%;
 
   p {
-    padding: 5px 8px;
-    font-size: 13px;
+    padding: ${({ theme }) => `${theme.spacing.spacing1} ${theme.spacing.spacing2}`};
+    font-size: ${({ theme }) => theme.spacing.spacing3_5};
     color: ${({ theme }) => theme.colors.red700};
   }
 `;
 export const Input = styled.input<{ isActive: boolean }>`
   width: 100%;
   height: 100%;
-  padding: 13px;
+  padding: ${({ theme }) => theme.spacing.spacing3};
   border: 1px solid
     ${({ isActive, theme }) => (isActive ? theme.colors.red500 : theme.colors.gray300)};
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.spacing.spacing2_5};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray500};
@@ -181,16 +182,17 @@ export const Input = styled.input<{ isActive: boolean }>`
 export const ReceiverTable = styled.table`
   width: 100%;
   border: 1px solid ${({ theme }) => theme.colors.gray300};
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.spacing.spacing2_5};
 
   thead {
     background-color: ${({ theme }) => theme.colors.gray200};
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.spacing.spacing2_5};
     border-bottom: 1px solid gray;
 
     th {
       text-align: left;
-      padding: 15px 0 15px 10px;
+      padding: ${({ theme }) =>
+        `${theme.spacing.spacing4} ${theme.spacing.spacing0} ${theme.spacing.spacing4} ${theme.spacing.spacing2_5}`};
     }
   }
 
@@ -203,7 +205,8 @@ export const ReceiverTable = styled.table`
 
     td {
       text-align: left;
-      padding: 15px 0 15px 10px;
+      padding: ${({ theme }) =>
+        `${theme.spacing.spacing4} ${theme.spacing.spacing0} ${theme.spacing.spacing4} ${theme.spacing.spacing2_5}`};
     }
   }
 `;

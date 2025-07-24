@@ -5,9 +5,9 @@ export const ThemeInfoWrapper = styled.div``;
 export const ThemeInfoHeader = styled.div<{ background: string }>`
   background-color: ${({ background, theme }) => background || theme.colors.gray00};
   color: ${({ theme }) => theme.colors.gray00};
-  padding: 30px 20px;
+  padding: ${({ theme }) => `${theme.spacing.spacing7_5} ${theme.spacing.spacing5}`};
 
   h2 {
-    padding: 10px 0;
+    padding: ${({ theme }) => `${theme.spacing.spacing2_5} ${theme.spacing.spacing0}`};
   }
 `;

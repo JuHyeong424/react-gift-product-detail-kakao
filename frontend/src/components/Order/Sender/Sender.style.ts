@@ -1,38 +1,40 @@
 import styled from '@emotion/styled';
 
 export const SenderWrapper = styled.div`
-  margin: 10px 0;
-  padding: 15px 15px 20px 15px;
+  margin: ${({ theme }) => `${theme.spacing.spacing2_5} ${theme.spacing.spacing0}`};
+  padding: ${({ theme }) =>
+    `${theme.spacing.spacing4} ${theme.spacing.spacing4} ${theme.spacing.spacing5} ${theme.spacing.spacing4}`};
   background-color: ${({ theme }) => theme.colors.gray00};
 `;
 
 export const Title = styled.p`
   font-weight: bold;
-  font-size: 17px;
-  margin-bottom: 15px;
+  font-size: ${({ theme }) => theme.spacing.spacing4_5};
+  margin-bottom: ${({ theme }) => theme.spacing.spacing4};
 `;
 
 export const SendInfo = styled.p`
-  padding-left: 10px;
+  padding-left: ${({ theme }) => theme.spacing.spacing2_5};
   color: ${({ theme }) => theme.colors.gray500};
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.spacing.spacing3_5};
 `;
 
 export const SendError = styled.p`
-  padding-left: 10px;
+  padding-left: ${({ theme }) => theme.spacing.spacing2_5};
   color: ${({ theme }) => theme.colors.red700};
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.spacing.spacing3_5};
 `;
 
 export const SenderInput = styled.input<{ isActive: boolean }>`
   width: 100%;
-  height: 45px;
+  height: ${({ theme }) => theme.spacing.spacing11};
   border: 1px solid
     ${({ theme, isActive }) => (isActive ? theme.colors.red700 : theme.colors.gray500)};
-  border-radius: 5px;
-  font-size: 17px;
-  padding: 14px;
-  margin: 0 5px 10px 5px;
+  border-radius: ${({ theme }) => theme.spacing.spacing1_5};
+  font-size: ${({ theme }) => theme.spacing.spacing4};
+  padding: ${({ theme }) => theme.spacing.spacing4_5};
+  margin: ${({ theme }) =>
+    `${theme.spacing.spacing0} ${theme.spacing.spacing1} ${theme.spacing.spacing2_5} ${theme.spacing.spacing1}`};
 
   ::placeholder {
     color: ${({ theme }) => theme.colors.gray500};
