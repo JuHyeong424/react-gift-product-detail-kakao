@@ -13,9 +13,9 @@ import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
 
 export default function GiftThema() {
   const navigate = useNavigate();
-  const { themes, error } = useFetchThemes();
+  const { themes } = useFetchThemes();
 
-  if (error || !Array.isArray(themes) || themes.length === 0) {
+  if (!Array.isArray(themes) || themes.length === 0) {
     return null;
   }
 
