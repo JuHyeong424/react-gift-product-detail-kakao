@@ -3,8 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useFetchThemesInfo from '@/hooks/fetch/useFetchThemesInfo.ts';
 import { Suspense, useEffect } from 'react';
 import { PATH } from '@/constants/path.ts';
-import ThemeInfo from '@/components/GiftThema/ThemaItem/ThemeInfo.tsx';
-import ThemeProducts from '@/components/GiftThema/ThemaItem/ThemeProducts.tsx';
+import ThemeInfo from '@/components/GiftTheme/ThemeItem/ThemeInfo.tsx';
+import ThemeProducts from '@/components/GiftTheme/ThemeItem/ThemeProducts.tsx';
 import Loading from '@/components/Common/Loading/Loading.tsx';
 
 export default function ThemeItems() {

@@ -5,7 +5,7 @@ import {
   ProductsList,
   ProductsLoading,
   ThemeProductsWrapper,
-} from '@/components/GiftThema/ThemaItem/ThemeProducts.styles.ts';
+} from '@/components/GiftTheme/ThemeItem/ThemeProducts.styles.ts';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';

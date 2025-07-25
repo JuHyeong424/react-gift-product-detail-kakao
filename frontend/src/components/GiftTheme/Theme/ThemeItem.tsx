@@ -1,4 +1,4 @@
-import { ThemeCard } from '@/components/GiftThema/Thema/ThemeItem.styles.ts';
+import { ThemeCard } from '@/components/GiftTheme/Theme/ThemeItem.styles.ts';
 
 interface Props {
   image: string;

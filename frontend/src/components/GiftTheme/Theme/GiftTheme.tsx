@@ -3,15 +3,16 @@ import {
   Section,
   ThemeListContainer,
   YellowBox,
-} from '@/components/GiftThema/Thema/GiftThema.styles.ts';
-import ThemeItem from '@/components/GiftThema/Thema/ThemeItem.tsx';
+} from '@/components/GiftTheme/Theme/GiftTheme.styles.ts';
+import ThemeItem from '@/components/GiftTheme/Theme/ThemeItem.tsx';
 import useFetchThemes from '@/hooks/fetch/useFetchThemes.ts';
 import { useNavigate } from 'react-router-dom';
 import { Suspense } from 'react';
 import Loading from '@/components/Common/Loading/Loading.tsx';
 import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
+import { PATH } from '@/constants/path.ts';
 
-export default function GiftThema() {
+export default function GiftTheme() {
   const navigate = useNavigate();
   const { themes } = useFetchThemes();
 
@@ -20,7 +21,7 @@ export default function GiftThema() {
   }
 
   const onThemesClickHandle = (item) => {
-    navigate(`/themes/${item.themeId}`);
+    navigate(`${PATH.THEMES}/${item.themeId}`);
   };
 
   return (

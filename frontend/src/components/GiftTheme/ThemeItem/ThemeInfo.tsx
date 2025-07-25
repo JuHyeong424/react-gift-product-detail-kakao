@@ -1,8 +1,8 @@
 import {
   ThemeInfoHeader,
   ThemeInfoWrapper,
-} from '@/components/GiftThema/ThemaItem/ThemeInfo.styles.ts';
-import { ProductsError } from '@/components/GiftThema/ThemaItem/ThemeProducts.styles.ts';
+} from '@/components/GiftTheme/ThemeItem/ThemeInfo.styles.ts';
+import { ProductsError } from '@/components/GiftTheme/ThemeItem/ThemeProducts.styles.ts';
 
 export default function ThemeInfo({ error, themeInfo }) {
   return (

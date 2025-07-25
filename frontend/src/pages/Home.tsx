@@ -1,4 +1,4 @@
-import GiftThema from '@/components/GiftThema/Thema/GiftThema.tsx';
+import GiftTheme from '@/components/GiftTheme/Theme/GiftTheme.tsx';
 import GiftRanking from '@/components/GiftRanking/GiftRanking.tsx';
 import Header from '@/components/Header/Header';
 import ChooseFriend from '@/components/ChooseFriend/ChooseFriend.tsx';
@@ -8,7 +8,7 @@ const Home = () => {
     <div>
       <Header />
       <ChooseFriend />
-      <GiftThema />
+      <GiftTheme />
       <GiftRanking />
     </div>
   );

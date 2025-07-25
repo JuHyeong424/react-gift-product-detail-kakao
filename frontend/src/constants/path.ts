@@ -3,4 +3,5 @@ export const PATH = {
   LOGIN: '/login',
   MY: '/my',
   ORDER: '/order',
+  THEMES: '/themes',
 };
