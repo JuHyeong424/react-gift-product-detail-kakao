@@ -26,7 +26,6 @@ export default function useFetchData<T>(key: QueryKey, url: string, params?: Rec
       }
     },
     staleTime: 1000 * 60 * 5,
-    suspense: true,
     throwOnError: true,
   });
 }
