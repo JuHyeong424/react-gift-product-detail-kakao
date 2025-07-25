@@ -29,7 +29,7 @@ import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
 
 export default function GiftRanking() {
   const navigate = useNavigate();
-  const [showCount, setShowCount] = useState<number>(INITIAL_VISIBLE_GIFT_COUNT); // 초기에 6개 보여줌
+  const [showCount, setShowCount] = useState<number>(INITIAL_VISIBLE_GIFT_COUNT);
   const [category, setCategory] = useLocalStorageState<string>('giftRankingCategory', '전체');
   const [sort, setSort] = useLocalStorageState<string>('giftRankingSort', '받고 싶어한');
   const userInfo = getUserInfo();
@@ -43,6 +43,15 @@ export default function GiftRanking() {
       prev === INITIAL_VISIBLE_GIFT_COUNT ? TOTAL_GIFT_COUNT : INITIAL_VISIBLE_GIFT_COUNT,
     );
   };
+
+  if (!Array.isArray(ranking) || ranking.length === 0) {
+    return (
+      <Section>
+        <Title>실시간 급상승 선물랭킹</Title>
+        <Error>상품이 없습니다.</Error>
+      </Section>
+    );
+  }
 
   return (
     <Section>
@@ -71,37 +80,31 @@ export default function GiftRanking() {
         ))}
       </SortOptions>
 
-      {Array.isArray(ranking) && ranking.length > 0 ? (
-        <>
-          <ErrorBoundary fallback={<div>에러 발생</div>}>
-            <Suspense fallback={<Loading />}>
-              <Grid>
-                {ranking.slice(0, showCount).map((item, index) => (
-                  <CardList
-                    key={item.name + index}
-                    rank={index + 1}
-                    image={item.imageURL}
-                    name={item.name}
-                    price={item.price.sellingPrice}
-                    brand={item.brandInfo.name}
-                    onClick={() =>
-                      navigate(userInfo ? `${PATH.ORDER}/${item.id}` : `${PATH.LOGIN}`, {
-                        state: { ranking, from: `${PATH.ORDER}/${item.id}` },
-                      })
-                    }
-                  />
-                ))}
-              </Grid>
-            </Suspense>
-          </ErrorBoundary>
+      <ErrorBoundary fallback={<div>에러 발생</div>}>
+        <Suspense fallback={<Loading />}>
+          <Grid>
+            {ranking.slice(0, showCount).map((item, index) => (
+              <CardList
+                key={item.name + index}
+                rank={index + 1}
+                image={item.imageURL}
+                name={item.name}
+                price={item.price.sellingPrice}
+                brand={item.brandInfo.name}
+                onClick={() =>
+                  navigate(userInfo ? `${PATH.ORDER}/${item.id}` : `${PATH.LOGIN}`, {
+                    state: { ranking, from: `${PATH.ORDER}/${item.id}` },
+                  })
+                }
+              />
+            ))}
+          </Grid>
+        </Suspense>
+      </ErrorBoundary>
 
-          <MoreButton onClick={handleToggle}>
-            {showCount === INITIAL_VISIBLE_GIFT_COUNT ? '더보기' : '접기'}
-          </MoreButton>
-        </>
-      ) : (
-        <Error>상품이 없습니다.</Error>
-      )}
+      <MoreButton onClick={handleToggle}>
+        {showCount === INITIAL_VISIBLE_GIFT_COUNT ? '더보기' : '접기'}
+      </MoreButton>
     </Section>
   );
 }
