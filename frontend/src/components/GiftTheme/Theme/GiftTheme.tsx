@@ -12,6 +12,12 @@ import Loading from '@/components/Common/Loading/Loading.tsx';
 import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
 import { PATH } from '@/constants/path.ts';
 
+interface Theme {
+  themeId: number;
+  name: string;
+  image: string;
+}
+
 export default function GiftTheme() {
   const navigate = useNavigate();
   const { themes } = useFetchThemes();
@@ -20,7 +26,7 @@ export default function GiftTheme() {
     return null;
   }
 
-  const onThemesClickHandle = (item) => {
+  const onThemesClickHandle = (item: Theme) => {
     navigate(`${PATH.THEMES}/${item.themeId}`);
   };
 

@@ -8,4 +8,6 @@ export const theme = {
   typography,
   spacing,
   semantic,
-};
+} as const;
+
+export type ThemeType = typeof theme;

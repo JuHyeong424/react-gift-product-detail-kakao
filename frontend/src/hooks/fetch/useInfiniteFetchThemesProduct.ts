@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import type { Product } from '@/hooks/fetch/useFetchRanking.ts';
+import type { Product } from '@/types/allTypes.ts';
 
 interface ThemesProduct {
   list: Product[];
@@ -9,7 +9,7 @@ interface ThemesProduct {
 }
 
 export default function useInfiniteFetchThemesProduct(url: string) {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<Product[]>([]);
   const [cursor, setCursor] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,11 @@ export default function useInfiniteFetchThemesProduct(url: string) {
       setCursor(nextCursor);
       setHasMore(hasMoreList);
     } catch (error) {
-      setStatusCode(error.response?.status || null);
+      if (axios.isAxiosError(error)) {
+        setStatusCode(error.response?.status || null);
+      } else {
+        setStatusCode(null);
+      }
       setError(true);
     } finally {
       setLoading(false);

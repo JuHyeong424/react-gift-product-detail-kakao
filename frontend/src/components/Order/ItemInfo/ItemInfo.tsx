@@ -1,7 +1,21 @@
 import { ItemTitle, ItemWrapper, Loading } from '@/components/Order/ItemInfo/ItemInfo.style.ts';
 import Item from '@/components/Common/OrderProductImage/OrderProductImage.tsx';
 
-export default function ItemInfo({ product, loading, error }) {
+interface Product {
+  id: string | number;
+  name: string;
+  brandName: string;
+  price: string | number;
+  imageURL: string;
+}
+
+interface ItemInfoProps {
+  product?: Product | null;
+  loading: boolean;
+  error?: Error | null;
+}
+
+export default function ItemInfo({ product, loading, error }: ItemInfoProps) {
   if (error) return null;
 
   if (!product) {

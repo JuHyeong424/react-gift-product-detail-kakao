@@ -1,6 +1,11 @@
 import styled from '@emotion/styled';
 
-export const ThemeProductsWrapper = styled.div<{ error; product }>`
+interface ThemeProductWrapperProps {
+  error: boolean;
+  product: number;
+}
+
+export const ThemeProductsWrapper = styled.div<ThemeProductWrapperProps>`
   min-height: ${({ error, product }) =>
     error || product === 0 ? `calc(100vh - 144px - 56px)` : '100vh'};
   background-color: ${({ theme }) => theme.colors.gray00};

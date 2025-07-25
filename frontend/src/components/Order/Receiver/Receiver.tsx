@@ -19,10 +19,8 @@ interface ReceiverProps {
 }
 
 export default function Receiver({ setCount, receiverForm }: ReceiverProps) {
-  // 모달 상태 제어
   const { modal, setModal } = useReceiverModalControl();
 
-  // form 상태 제어
   const {
     register,
     reset,

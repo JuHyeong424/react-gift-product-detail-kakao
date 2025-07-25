@@ -6,18 +6,27 @@ import {
   ModalTitle,
 } from '@/components/Order/Receiver/Receiver.style.ts';
 import ReceiverFormList from '@/components/Order/Receiver/ReceiverFormList.tsx';
-import type { FieldArrayWithId, FieldErrors, useForm, UseFormRegister } from 'react-hook-form';
+import type {
+  FieldArrayWithId,
+  FieldErrors,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from 'react-hook-form';
 import type { Receiver } from '@/types/order.ts';
+
+interface FormData {
+  receiverInfo: Receiver[];
+}
 
 interface ReceiverModalProps {
   setModal: (value: boolean) => void;
-  fields: FieldArrayWithId<Receiver[], 'receiverInfo'>[];
-  register: UseFormRegister<any>;
+  fields: FieldArrayWithId<FormData, 'receiverInfo'>[];
+  register: UseFormRegister<FormData>;
   handleAdd: () => void;
-  handleSubmit: ReturnType<typeof useForm>['handleSubmit'];
-  onSubmit: (data: any) => void;
+  handleSubmit: UseFormHandleSubmit<FormData>;
+  onSubmit: (data: FormData) => void;
   remove: (index: number) => void;
-  errors: FieldErrors;
+  errors: FieldErrors<FormData>;
   handleCancle: () => void;
   isSamePhoneNumber: (phone: string, index: number) => boolean;
 }

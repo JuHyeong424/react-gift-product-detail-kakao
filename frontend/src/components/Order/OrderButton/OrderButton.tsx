@@ -2,8 +2,8 @@ import { PriceButton } from './OrderButton.style';
 import { useFormContext } from 'react-hook-form';
 import useOrderSubmit from '@/hooks/order/useOrderSubmit';
 
-interface Props {
-  product: { id: number; name: string; price: number };
+interface OrderButtonProps {
+  product?: { id: number; name: string; price: number };
   loading: boolean;
   error: unknown;
   count: number;
@@ -12,9 +12,25 @@ interface Props {
   };
 }
 
-export default function OrderButton({ product, loading, error, count, receiverForm }: Props) {
-  const { handleSubmit } = useFormContext();
-  const onSubmit = useOrderSubmit({ product, count, receiverRef: receiverForm.submittedRef });
+interface FormValues {
+  textMessage: string;
+  senderName: string;
+  messageCardId: string | number;
+}
+
+export default function OrderButton({
+  product,
+  loading,
+  error,
+  count,
+  receiverForm,
+}: OrderButtonProps) {
+  const { handleSubmit } = useFormContext<FormValues>();
+  const onSubmit = useOrderSubmit({
+    product: product!,
+    count,
+    receiverRef: receiverForm.submittedRef,
+  });
 
   if (error) return null;
   if (!product) return <div>상품 정보가 없습니다.</div>;

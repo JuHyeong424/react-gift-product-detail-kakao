@@ -44,7 +44,7 @@ const Login = () => {
     },
   });
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isFormValid) return;

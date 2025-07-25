@@ -3,8 +3,14 @@ import {
   ThemeInfoWrapper,
 } from '@/components/GiftTheme/ThemeItem/ThemeInfo.styles.ts';
 import { ProductsError } from '@/components/GiftTheme/ThemeItem/ThemeProducts.styles.ts';
+import type { ThemeInfo } from '@/types/allTypes.ts';
 
-export default function ThemeInfo({ error, themeInfo }) {
+interface ThemeInfoProps {
+  error?: Error | null;
+  themeInfo?: ThemeInfo;
+}
+
+export default function ThemeInfo({ error, themeInfo }: ThemeInfoProps) {
   return (
     <ThemeInfoWrapper>
       {error || !themeInfo ? (

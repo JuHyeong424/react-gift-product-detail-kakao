@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { PATH } from '@/constants/path.ts';
 
-export default function useErrorRedirect(error) {
+export default function useErrorRedirect(error: string | null | undefined) {
   const navigate = useNavigate();
 
   useEffect(() => {

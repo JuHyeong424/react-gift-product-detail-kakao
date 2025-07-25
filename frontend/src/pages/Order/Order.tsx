@@ -37,7 +37,7 @@ export default function Order() {
 
   const { product, loading, error } = useFetchProductData(id);
 
-  useErrorRedirect(error);
+  useErrorRedirect(error?.message);
 
   useEffect(() => {
     // 컴포넌트가 마운트(처음 렌더링) 될 때 스크롤을 맨 위로 이동
