@@ -6,9 +6,10 @@ import order from '@/api/order';
 import { renderOrderSuccessToast } from '@/utils/toastContents';
 import type { OrderRequest } from '@/api/order';
 import { useMutation } from '@tanstack/react-query';
+import type { SelectedItemInfo } from '@/types/allTypes.ts';
 
 interface UseOrderSubmitParams {
-  product: { id: number; name: string; price: number };
+  product: SelectedItemInfo;
   count: number;
   receiverRef: React.MutableRefObject<{ name: string; phone: string; count: number }[] | null>;
 }

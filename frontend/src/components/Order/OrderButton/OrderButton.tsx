@@ -1,9 +1,10 @@
 import { PriceButton } from './OrderButton.style';
 import { useFormContext } from 'react-hook-form';
 import useOrderSubmit from '@/hooks/order/useOrderSubmit';
+import type { SelectedItemInfo } from '@/types/allTypes.ts';
 
 interface OrderButtonProps {
-  product?: { id: number; name: string; price: number };
+  product?: SelectedItemInfo;
   loading: boolean;
   error: unknown;
   count: number;
