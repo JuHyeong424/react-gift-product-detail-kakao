@@ -27,11 +27,3 @@ export interface Product {
     imageURL: string;
   };
 }
-
-export interface SelectedItemInfo {
-  id: string | number;
-  name: string;
-  brandName: string;
-  price: number;
-  imageURL: string;
-}

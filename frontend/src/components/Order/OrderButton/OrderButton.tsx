@@ -1,7 +1,7 @@
 import { PriceButton } from './OrderButton.style';
 import { useFormContext } from 'react-hook-form';
 import useOrderSubmit from '@/hooks/order/useOrderSubmit';
-import type { SelectedItemInfo } from '@/types/allTypes.ts';
+import type { SelectedItemInfo } from '@/types/order/types.ts';
 
 interface OrderButtonProps {
   product?: SelectedItemInfo;

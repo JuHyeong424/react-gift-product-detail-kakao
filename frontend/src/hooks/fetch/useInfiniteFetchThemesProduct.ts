@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import type { Product } from '@/types/allTypes.ts';
+import type { Product } from '@/types/themes/types.ts';
 
 interface ThemesProduct {
   list: Product[];

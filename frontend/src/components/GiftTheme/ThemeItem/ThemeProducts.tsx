@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import useInfiniteScrollObserver from '@/hooks/useInfiniteScrollObserver.ts';
-import type { Product } from '@/types/allTypes.ts';
+import type { Product } from '@/types/themes/types.ts';
 
 interface ThemeProductProps {
   themeId: number;

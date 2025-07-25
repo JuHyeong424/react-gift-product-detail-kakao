@@ -6,7 +6,7 @@ import order from '@/api/order';
 import { renderOrderSuccessToast } from '@/utils/toastContents';
 import type { OrderRequest } from '@/api/order';
 import { useMutation } from '@tanstack/react-query';
-import type { SelectedItemInfo } from '@/types/allTypes.ts';
+import type { SelectedItemInfo } from '@/types/order/types.ts';
 
 interface UseOrderSubmitParams {
   product: SelectedItemInfo;
