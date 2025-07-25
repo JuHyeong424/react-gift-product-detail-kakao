@@ -36,7 +36,7 @@ export default function GiftRanking() {
   const targetType = targetTypeMap[category];
   const rankType = rankTypeMap[sort];
 
-  const { ranking, loading } = useFetchRanking(targetType, rankType);
+  const { ranking } = useFetchRanking(targetType, rankType);
 
   const handleToggle = () => {
     setShowCount((prev) =>
@@ -86,7 +86,7 @@ export default function GiftRanking() {
                     brand={item.brandInfo.name}
                     onClick={() =>
                       navigate(userInfo ? `${PATH.ORDER}/${item.id}` : `${PATH.LOGIN}`, {
-                        state: { ranking, loading, from: `${PATH.ORDER}/${item.id}` },
+                        state: { ranking, from: `${PATH.ORDER}/${item.id}` },
                       })
                     }
                   />

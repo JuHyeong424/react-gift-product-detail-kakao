@@ -18,17 +18,12 @@ export interface Product {
 }
 
 export default function useFetchRanking(targetType: string, rankType: string) {
-  const { data, isLoading } = useFetchData<Product>(
-    ['ranking', targetType, rankType],
-    RANKING_URL,
-    {
-      targetType,
-      rankType,
-    },
-  );
+  const { data } = useFetchData<Product>(['ranking', targetType, rankType], RANKING_URL, {
+    targetType,
+    rankType,
+  });
 
   return {
     ranking: data?.data,
-    loading: isLoading,
   };
 }
