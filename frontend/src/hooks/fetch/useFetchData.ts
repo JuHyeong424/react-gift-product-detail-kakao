@@ -1,5 +1,5 @@
 import { useQuery, type QueryKey } from '@tanstack/react-query';
-import axios, { AxiosError, isAxiosError } from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { DEFAULT_ERROR_MESSAGE } from '@/constants/errorMessage.ts';
 
 interface FetchResponse<T> {
