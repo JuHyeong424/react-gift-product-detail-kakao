@@ -1,5 +1,5 @@
 import { useQuery, type QueryKey } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, isAxiosError } from 'axios';
 import { DEFAULT_ERROR_MESSAGE } from '@/constants/errorMessage.ts';
 
 interface FetchResponse<T> {
@@ -8,7 +8,7 @@ interface FetchResponse<T> {
 }
 
 export default function useFetchData<T>(key: QueryKey, url: string, params?: Record<string, any>) {
-  return useQuery<FetchResponse<T>, Error>({
+  return useQuery<FetchResponse<T>, Error, FetchResponse<T>, QueryKey>({
     queryKey: [key, params],
     queryFn: async () => {
       try {
@@ -18,11 +18,15 @@ export default function useFetchData<T>(key: QueryKey, url: string, params?: Rec
           statusCode: res.status,
         };
       } catch (e) {
-        const error = e as AxiosError<{ message: string }>;
-        const errorMessage = error.response?.data?.data?.message || DEFAULT_ERROR_MESSAGE;
-        throw new Error(errorMessage);
+        if (isAxiosError(e)) {
+          const errorMessage = e.response?.data?.message || DEFAULT_ERROR_MESSAGE;
+          throw new Error(errorMessage);
+        }
+        throw new Error(DEFAULT_ERROR_MESSAGE);
       }
     },
     staleTime: 1000 * 60 * 5,
+    suspense: true,
+    throwOnError: true,
   });
 }

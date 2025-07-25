@@ -48,6 +48,28 @@ export default function GiftRanking() {
     return (
       <Section>
         <Title>실시간 급상승 선물랭킹</Title>
+        <CategoryFilter>
+          {categories.map(({ label, icon }) => (
+            <FilterButton
+              key={label}
+              label={label}
+              icon={icon}
+              isActive={category === label}
+              onClick={() => setCategory(label)}
+            />
+          ))}
+        </CategoryFilter>
+
+        <SortOptions>
+          {sorts.map((option) => (
+            <SortSpan
+              key={option}
+              label={option}
+              isActive={sort === option}
+              onClick={() => setSort(option)}
+            />
+          ))}
+        </SortOptions>
         <Error>상품이 없습니다.</Error>
       </Section>
     );

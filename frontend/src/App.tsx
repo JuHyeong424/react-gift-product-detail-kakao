@@ -16,8 +16,6 @@ import Home from '@/pages/Home.tsx';
 const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
     queries: {
-      suspense: true,
-      useErrorBoundary: true,
       staleTime: 1000 * 60 * 5,
     },
   },

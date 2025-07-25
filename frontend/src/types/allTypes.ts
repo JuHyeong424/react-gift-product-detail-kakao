@@ -28,10 +28,10 @@ export interface Product {
   };
 }
 
-export interface Item {
+export interface SelectedItemInfo {
   id: string | number;
   name: string;
   brandName: string;
-  price: string | number;
+  price: number;
   imageURL: string;
 }
