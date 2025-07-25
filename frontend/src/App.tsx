@@ -10,9 +10,10 @@ import My from '@/pages/My/My.tsx';
 import Order from '@/pages/Order/Order.tsx';
 import ThemeItems from '@/pages/ThemeItem/ThemeItems.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { QueryClientConfig } from '@tanstack/react-query';
 import Home from '@/pages/Home.tsx';
 
-const queryClient = new QueryClient({
+const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
     queries: {
       suspense: true,
@@ -20,7 +21,9 @@ const queryClient = new QueryClient({
       staleTime: 1000 * 60 * 5,
     },
   },
-});
+};
+
+const queryClient = new QueryClient(queryClientConfig);
 
 const App = () => {
   return (
