@@ -1,16 +1,15 @@
 import useFetchThemesProduct from '@/hooks/fetch/useFetchThemesProduct.ts';
-import CardList from '@/components/Common/CardItem/CardList.tsx';
+import { useNavigate } from 'react-router-dom';
+import { getUserInfo } from '@/storage/userInfo.ts';
+import useInfiniteScrollObserver from '@/hooks/useInfiniteScrollObserver.ts';
 import {
   ProductsError,
   ProductsList,
   ProductsLoading,
   ThemeProductsWrapper,
 } from '@/components/GiftTheme/ThemeItem/ThemeProducts.styles.ts';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { PATH } from '@/constants/path';
-import useInfiniteScrollObserver from '@/hooks/useInfiniteScrollObserver.ts';
-import { getUserInfo } from '@/storage/userInfo.ts';
+import CardList from '@/components/Common/CardItem/CardList.tsx';
+import { PATH } from '@/constants/path.ts';
 
 interface ThemeProductProps {
   themeId: number;
@@ -23,10 +22,9 @@ export default function ThemeProducts({ themeId }: ThemeProductProps) {
   const {
     list: themeProducts,
     loading,
-    error,
     hasMore,
     fetchNextPage,
-    statusCode,
+    error,
   } = useFetchThemesProduct(themeId);
 
   const observerRef = useInfiniteScrollObserver({
@@ -34,12 +32,6 @@ export default function ThemeProducts({ themeId }: ThemeProductProps) {
     hasMore,
     loading,
   });
-
-  useEffect(() => {
-    if (statusCode === 404) {
-      navigate(`${PATH.HOME}`);
-    }
-  }, [statusCode, navigate]);
 
   return (
     <ThemeProductsWrapper error={error} product={themeProducts.length}>

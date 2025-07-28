@@ -1,4 +1,4 @@
-import { useQuery, type QueryKey } from '@tanstack/react-query';
+import { useSuspenseQuery, type QueryKey } from '@tanstack/react-query';
 import axios, { isAxiosError } from 'axios';
 import { DEFAULT_ERROR_MESSAGE } from '@/constants/errorMessage.ts';
 
@@ -12,7 +12,7 @@ export default function useFetchData<T, P = Record<string, unknown>>(
   url: string,
   params?: P,
 ) {
-  return useQuery<FetchResponse<T>, Error, FetchResponse<T>, QueryKey>({
+  return useSuspenseQuery<FetchResponse<T>, Error>({
     queryKey: [key, params],
     queryFn: async () => {
       try {
@@ -30,6 +30,5 @@ export default function useFetchData<T, P = Record<string, unknown>>(
       }
     },
     staleTime: 1000 * 60 * 5,
-    throwOnError: true,
   });
 }

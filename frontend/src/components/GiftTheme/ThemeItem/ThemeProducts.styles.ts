@@ -25,7 +25,7 @@ export const ProductsLoading = styled.div`
   align-items: center;
   font-weight: bold;
   font-size: ${({ theme }) => theme.spacing.spacing7_5};
-  margin: ${({ theme }) => ` ${theme.spacing.spacing10} ${theme.spacing.spacing0}`};
+  padding: ${({ theme }) => ` ${theme.spacing.spacing10} ${theme.spacing.spacing0}`};
 `;
 
 export const ProductsError = styled.div`
