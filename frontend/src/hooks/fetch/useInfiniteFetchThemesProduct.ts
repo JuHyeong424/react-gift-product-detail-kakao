@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useInfiniteQuery, type QueryFunctionContext } from '@tanstack/react-query';
 import axios from 'axios';
 import type { Product } from '@/types/themes/types.ts';
 
@@ -8,52 +8,36 @@ interface ThemesProduct {
   hasMoreList: boolean;
 }
 
+// queryFn: readonly 키 적용
+async function fetchThemeProducts({
+  pageParam = 0,
+  queryKey,
+}: QueryFunctionContext<readonly [string, string], number>) {
+  const [, url] = queryKey;
+  const response = await axios.get<{ data: ThemesProduct }>(`${url}?cursor=${pageParam}&limit=10`);
+  return response.data.data;
+}
+
 export default function useInfiniteFetchThemesProduct(url: string) {
-  const [list, setList] = useState<Product[]>([]);
-  const [cursor, setCursor] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [statusCode, setStatusCode] = useState<number | null>(null);
-  const isFetchingRef = useRef(false);
+  const { data, error, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
+    queryKey: ['theme-products', url] as const,
+    queryFn: fetchThemeProducts,
+    getNextPageParam: (lastPage) => (lastPage.hasMoreList ? lastPage.cursor : undefined),
+    staleTime: 1000 * 60 * 5,
+    retry: 1,
+    initialPageParam: 0,
+  });
 
-  const fetchData = useCallback(async () => {
-    if (!hasMore || isFetchingRef.current) return;
-
-    isFetchingRef.current = true;
-    setLoading(true);
-    setError(false);
-
-    try {
-      const res = await axios.get<{ data: ThemesProduct }>(`${url}?cursor=${cursor}&limit=10`);
-      const { list: newItems, cursor: nextCursor, hasMoreList } = res.data.data;
-
-      setList((prev) => [...prev, ...newItems]);
-      setCursor(nextCursor);
-      setHasMore(hasMoreList);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setStatusCode(error.response?.status || null);
-      } else {
-        setStatusCode(null);
-      }
-      setError(true);
-    } finally {
-      setLoading(false);
-      isFetchingRef.current = false;
-    }
-  }, [url, cursor, hasMore]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const list = data?.pages.flatMap((page) => page.list) ?? [];
 
   return {
     list,
-    loading,
-    error,
-    hasMore,
-    fetchNextPage: fetchData,
-    statusCode,
+    loading: status === 'pending', // 이제 정상 작동
+    error: status === 'error',
+    hasMore: hasNextPage ?? false,
+    fetchNextPage: async () => {
+      await fetchNextPage();
+    },
+    statusCode: error && axios.isAxiosError(error) ? (error.response?.status ?? null) : null,
   };
 }

@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import useInfiniteScrollObserver from '@/hooks/useInfiniteScrollObserver.ts';
-import type { Product } from '@/types/themes/types.ts';
 
 interface ThemeProductProps {
   themeId: number;
@@ -25,14 +24,7 @@ export default function ThemeProducts({ themeId }: ThemeProductProps) {
     hasMore,
     fetchNextPage,
     statusCode,
-  } = useFetchThemesProduct(themeId) as {
-    list: Product[];
-    loading: boolean;
-    error: boolean;
-    hasMore: boolean;
-    fetchNextPage: () => void;
-    statusCode?: number;
-  };
+  } = useFetchThemesProduct(themeId);
 
   const observerRef = useInfiniteScrollObserver({
     fetchNextPage,
