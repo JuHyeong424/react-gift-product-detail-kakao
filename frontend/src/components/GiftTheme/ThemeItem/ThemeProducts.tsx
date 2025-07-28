@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/constants/path';
 import useInfiniteScrollObserver from '@/hooks/useInfiniteScrollObserver.ts';
+import { getUserInfo } from '@/storage/userInfo.ts';
 
 interface ThemeProductProps {
   themeId: number;
@@ -17,6 +18,8 @@ interface ThemeProductProps {
 
 export default function ThemeProducts({ themeId }: ThemeProductProps) {
   const navigate = useNavigate();
+  const userInfo = getUserInfo();
+
   const {
     list: themeProducts,
     loading,
@@ -54,6 +57,11 @@ export default function ThemeProducts({ themeId }: ThemeProductProps) {
                 name={item.name}
                 price={item.price.sellingPrice}
                 brand={item.brandInfo.name}
+                onClick={() =>
+                  navigate(userInfo ? `${PATH.ORDER}/${item.id}` : `${PATH.LOGIN}`, {
+                    state: { from: `${PATH.ORDER}/${item.id}` },
+                  })
+                }
               />
             ))}
           </ProductsList>
