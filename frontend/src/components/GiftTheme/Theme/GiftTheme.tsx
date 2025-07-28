@@ -11,41 +11,16 @@ import { Suspense } from 'react';
 import Loading from '@/components/Common/Loading/Loading.tsx';
 import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
 import { PATH } from '@/constants/path.ts';
-
-interface Theme {
-  themeId: number;
-  name: string;
-  image: string;
-}
+import ThemeList from '@/components/GiftTheme/Theme/ThemeList.tsx';
 
 export default function GiftTheme() {
-  const navigate = useNavigate();
-  const { themes } = useFetchThemes();
-
-  if (!Array.isArray(themes) || themes.length === 0) {
-    return null;
-  }
-
-  const onThemesClickHandle = (item: Theme) => {
-    navigate(`${PATH.THEMES}/${item.themeId}`);
-  };
-
   return (
     <Section>
       <Title>선물 테마</Title>
 
-      <ErrorBoundary fallback={<div>에러 발생</div>}>
+      <ErrorBoundary fallback={<div>데이터를 불러올 수 없습니다. 잠시 후 다시 시도해주세요.</div>}>
         <Suspense fallback={<Loading />}>
-          <ThemeListContainer>
-            {themes.map((item) => (
-              <ThemeItem
-                key={item.themeId}
-                image={item.image}
-                name={item.name}
-                onClick={() => onThemesClickHandle(item)}
-              />
-            ))}
-          </ThemeListContainer>
+          <ThemeList />
         </Suspense>
       </ErrorBoundary>
 

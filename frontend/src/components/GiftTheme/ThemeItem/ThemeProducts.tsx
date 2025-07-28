@@ -26,32 +26,34 @@ export default function ThemeProducts({ themeId }: ThemeProductProps) {
     loading: false,
   });
 
+  if (themeProducts.length === 0) {
+    return (
+      <ThemeProductsWrapper error={true} product={themeProducts.length}>
+        <ProductsError>상품이 없습니다.</ProductsError>
+      </ThemeProductsWrapper>
+    );
+  }
+
   return (
     <ThemeProductsWrapper error={false} product={themeProducts.length}>
-      {themeProducts.length === 0 ? (
-        <ProductsError>상품이 없습니다.</ProductsError>
-      ) : (
-        <>
-          <ProductsList>
-            {themeProducts.map((item) => (
-              <CardList
-                key={item.id}
-                image={item.imageURL}
-                name={item.name}
-                price={item.price.sellingPrice}
-                brand={item.brandInfo.name}
-                onClick={() =>
-                  navigate(userInfo ? `${PATH.ORDER}/${item.id}` : `${PATH.LOGIN}`, {
-                    state: { from: `${PATH.ORDER}/${item.id}` },
-                  })
-                }
-              />
-            ))}
-          </ProductsList>
+      <ProductsList>
+        {themeProducts.map((item) => (
+          <CardList
+            key={item.id}
+            image={item.imageURL}
+            name={item.name}
+            price={item.price.sellingPrice}
+            brand={item.brandInfo.name}
+            onClick={() =>
+              navigate(userInfo ? `${PATH.ORDER}/${item.id}` : `${PATH.LOGIN}`, {
+                state: { from: `${PATH.ORDER}/${item.id}` },
+              })
+            }
+          />
+        ))}
+      </ProductsList>
 
-          <div ref={observerRef} style={{ height: '50px' }} />
-        </>
-      )}
+      <div ref={observerRef} style={{ height: '50px' }} />
     </ThemeProductsWrapper>
   );
 }

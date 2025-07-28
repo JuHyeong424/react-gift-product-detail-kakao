@@ -10,18 +10,21 @@ interface ThemeInfoProps {
   themeInfo?: ThemeInfo;
 }
 
-export default function ThemeInfo({ error, themeInfo }: ThemeInfoProps) {
+export default function ThemeInfo({ themeInfo }: ThemeInfoProps) {
+  if (!themeInfo) {
+    return (
+      <ThemeInfoWrapper>
+        <ProductsError>테마 정보를 찾을 수 없습니다.</ProductsError>
+      </ThemeInfoWrapper>
+    );
+  }
   return (
     <ThemeInfoWrapper>
-      {error || !themeInfo ? (
-        <ProductsError>테마 정보를 찾을 수 없습니다.</ProductsError>
-      ) : (
-        <ThemeInfoHeader background={themeInfo.backgroundColor}>
-          <h5>{themeInfo.name}</h5>
-          <h2>{themeInfo.title}</h2>
-          <p>{themeInfo.description}</p>
-        </ThemeInfoHeader>
-      )}
+      <ThemeInfoHeader background={themeInfo.backgroundColor}>
+        <h5>{themeInfo.name}</h5>
+        <h2>{themeInfo.title}</h2>
+        <p>{themeInfo.description}</p>
+      </ThemeInfoHeader>
     </ThemeInfoWrapper>
   );
 }
