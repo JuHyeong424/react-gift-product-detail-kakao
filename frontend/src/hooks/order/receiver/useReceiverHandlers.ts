@@ -37,9 +37,11 @@ export const submitHandler =
   (
     submittedRef: React.MutableRefObject<Receiver[] | null>,
     setModal: React.Dispatch<React.SetStateAction<boolean>>,
+    setSubmitted: React.Dispatch<React.SetStateAction<Receiver[] | null>>,
   ) =>
   (data: { receiverInfo: Receiver[] }) => {
     console.log(data);
     submittedRef.current = data.receiverInfo;
+    setSubmitted(data.receiverInfo);
     setModal(false);
   };

@@ -7,7 +7,11 @@ interface FetchResponse<T> {
   statusCode: number;
 }
 
-export default function useFetchData<T>(key: QueryKey, url: string, params?: Record<string, any>) {
+export default function useFetchData<T, P = Record<string, unknown>>(
+  key: QueryKey,
+  url: string,
+  params?: P,
+) {
   return useQuery<FetchResponse<T>, Error, FetchResponse<T>, QueryKey>({
     queryKey: [key, params],
     queryFn: async () => {

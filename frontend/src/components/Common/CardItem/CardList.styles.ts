@@ -23,7 +23,8 @@ export const RankBadge = styled.div<{ rank: number }>`
   font-size: ${({ theme }) => theme.spacing.spacing3};
   font-weight: bold;
   color: ${({ theme }) => theme.colors.gray00};
-  background-color: ${({ rank, theme }) => (rank <= RANKING_IN_THREE ? theme.colors.red800 : theme.colors.gray700)};
+  background-color: ${({ rank, theme }) =>
+    rank <= RANKING_IN_THREE ? theme.colors.red800 : theme.colors.gray700};
   display: flex;
   align-items: center;
   justify-content: center;
