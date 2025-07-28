@@ -1,16 +1,7 @@
-import {
-  Title,
-  Section,
-  ThemeListContainer,
-  YellowBox,
-} from '@/components/GiftTheme/Theme/GiftTheme.styles.ts';
-import ThemeItem from '@/components/GiftTheme/Theme/ThemeItem.tsx';
-import useFetchThemes from '@/hooks/fetch/useFetchThemes.ts';
-import { useNavigate } from 'react-router-dom';
+import { Title, Section, YellowBox } from '@/components/GiftTheme/Theme/GiftTheme.styles.ts';
 import { Suspense } from 'react';
 import Loading from '@/components/Common/Loading/Loading.tsx';
 import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
-import { PATH } from '@/constants/path.ts';
 import ThemeList from '@/components/GiftTheme/Theme/ThemeList.tsx';
 
 export default function GiftTheme() {

@@ -20,7 +20,7 @@ export default function ThemeList() {
 
   return (
     <ThemeListContainer>
-      {themes.map((item) => (
+      {themes?.map((item) => (
         <ThemeItem
           key={item.themeId}
           image={item.image}
@@ -29,5 +29,5 @@ export default function ThemeList() {
         />
       ))}
     </ThemeListContainer>
-  )
+  );
 }

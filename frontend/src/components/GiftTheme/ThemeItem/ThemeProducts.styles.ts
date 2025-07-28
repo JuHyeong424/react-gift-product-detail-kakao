@@ -6,8 +6,7 @@ interface ThemeProductWrapperProps {
 }
 
 export const ThemeProductsWrapper = styled.div<ThemeProductWrapperProps>`
-  min-height: ${({ error, product }) =>
-    error || product === 0 ? `69vh` : '100vh'};
+  min-height: ${({ error, product }) => (error || product === 0 ? `69vh` : '100vh')};
   background-color: ${({ theme }) => theme.colors.gray00};
   padding: ${({ theme }) => ` ${theme.spacing.spacing0} ${theme.spacing.spacing5}`};
 `;
