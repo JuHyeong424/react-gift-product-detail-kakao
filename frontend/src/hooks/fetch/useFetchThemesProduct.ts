@@ -4,14 +4,19 @@ import type { Product } from '@/types/themes/types.ts';
 
 interface UseFetchThemesProductResult {
   list: Product[];
-  loading: boolean;
-  error: boolean;
   hasMore: boolean;
   fetchNextPage: () => Promise<void>;
-  statusCode: number | null;
 }
 
 export default function useFetchThemesProduct(themesId: number): UseFetchThemesProductResult {
   const url = THEMES_PRODUCTS(themesId);
-  return useInfiniteFetchThemesProduct(url);
+  const { list, hasMore, fetchNextPage } = useInfiniteFetchThemesProduct(url);
+
+  return {
+    list,
+    hasMore,
+    fetchNextPage: async () => {
+      await fetchNextPage();
+    },
+  };
 }

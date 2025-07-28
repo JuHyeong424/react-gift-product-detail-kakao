@@ -4,7 +4,6 @@ import { DEFAULT_ERROR_MESSAGE } from '@/constants/errorMessage.ts';
 
 interface FetchResponse<T> {
   data: T;
-  statusCode: number;
 }
 
 export default function useFetchData<T, P = Record<string, unknown>>(
@@ -19,7 +18,6 @@ export default function useFetchData<T, P = Record<string, unknown>>(
         const res = await axios.get<{ data: T }>(url, { params });
         return {
           data: res.data.data,
-          statusCode: res.status,
         };
       } catch (e) {
         if (isAxiosError(e)) {

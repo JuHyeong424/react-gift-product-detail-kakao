@@ -5,7 +5,6 @@ import useInfiniteScrollObserver from '@/hooks/useInfiniteScrollObserver.ts';
 import {
   ProductsError,
   ProductsList,
-  ProductsLoading,
   ThemeProductsWrapper,
 } from '@/components/GiftTheme/ThemeItem/ThemeProducts.styles.ts';
 import CardList from '@/components/Common/CardItem/CardList.tsx';
@@ -19,25 +18,17 @@ export default function ThemeProducts({ themeId }: ThemeProductProps) {
   const navigate = useNavigate();
   const userInfo = getUserInfo();
 
-  const {
-    list: themeProducts,
-    loading,
-    hasMore,
-    fetchNextPage,
-    error,
-  } = useFetchThemesProduct(themeId);
+  const { list: themeProducts, hasMore, fetchNextPage } = useFetchThemesProduct(themeId);
 
   const observerRef = useInfiniteScrollObserver({
     fetchNextPage,
     hasMore,
-    loading,
+    loading: false,
   });
 
   return (
-    <ThemeProductsWrapper error={error} product={themeProducts.length}>
-      {loading && themeProducts.length === 0 ? (
-        <ProductsLoading>로딩 중...</ProductsLoading>
-      ) : error || themeProducts.length === 0 ? (
+    <ThemeProductsWrapper error={false} product={themeProducts.length}>
+      {themeProducts.length === 0 ? (
         <ProductsError>상품이 없습니다.</ProductsError>
       ) : (
         <>

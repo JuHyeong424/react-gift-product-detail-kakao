@@ -4,7 +4,6 @@ import type { ThemeInfo } from '@/types/themes/types.ts';
 
 interface UseFetchThemesInfoResult {
   themeInfo?: ThemeInfo;
-  statusCode?: number;
 }
 
 export default function useFetchThemesInfo(themesId: number): UseFetchThemesInfoResult {
@@ -13,6 +12,5 @@ export default function useFetchThemesInfo(themesId: number): UseFetchThemesInfo
 
   return {
     themeInfo: data?.data,
-    statusCode: data?.statusCode,
   };
 }
