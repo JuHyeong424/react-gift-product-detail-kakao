@@ -1,4 +1,4 @@
-import { colors } from '@/types/theme/palette.ts';
+import { colors } from '@/types/style/palette.ts';
 
 export const semantic = {
   brand: {

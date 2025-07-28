@@ -5,33 +5,31 @@ export const Wrapper = styled.button<{ isActive: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 10px 0;
-  background-color: #fff;
+  gap: ${({ theme }) => theme.spacing.spacing1_5};
+  padding: ${({ theme }) => `${theme.spacing.spacing2_5} ${theme.spacing.spacing0}`};
+  background-color: ${({ theme }) => theme.colors.gray00};
   border: none;
-  border-radius: 16px;
+  border-radius: ${({ theme }) => theme.spacing.spacing4};
   cursor: pointer;
-
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.spacing.spacing3};
   font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
 
   div {
-    font-size: 14px;
-    width: 44px;
-    height: 44px;
-    border-radius: 16px;
-    padding: 20px;
+    font-size: ${({ theme }) => theme.spacing.spacing3_5};
+    width: ${({ theme }) => theme.spacing.spacing11};
+    height: ${({ theme }) => theme.spacing.spacing11};
+    border-radius: ${({ theme }) => theme.spacing.spacing4};
+    padding: ${({ theme }) => theme.spacing.spacing5};
     background-color: ${({ isActive, theme }) =>
       isActive ? theme.colors.blue700 : theme.colors.blue100};
-    color: ${({ isActive, theme }) => (isActive ? theme.colors.gray00 : theme.colors.blue400)};
-
+    color: ${({ isActive, theme }) => (isActive ? theme.colors.gray100 : theme.colors.blue400)};
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   p {
-    color: ${({ isActive }) => (isActive ? '#217cf9' : '#c9c9c9')};
+    color: ${({ isActive, theme }) => (isActive ? theme.colors.blue700 : theme.colors.blue300)};
   }
 
   transition:

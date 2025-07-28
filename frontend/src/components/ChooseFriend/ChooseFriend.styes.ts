@@ -7,17 +7,17 @@ export const Wrapper = styled.div`
   padding: ${({ theme }) => theme.spacing.spacing4};
   background-color: ${({ theme }) => theme.colors.gray00};
   margin: ${({ theme }) => theme.spacing.spacing7};
-  border-radius: 18px;
+  border-radius: ${({ theme }) => theme.spacing.spacing4_5};
   cursor: pointer;
 `;
 
 export const PlusButton = styled.button`
   background-color: ${({ theme }) => theme.colors.semantic.brand.kakaoYellow};
   border: none;
-  border-radius: 16px;
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
+  border-radius: ${({ theme }) => theme.spacing.spacing4};
+  width: ${({ theme }) => theme.spacing.spacing10};
+  height: ${({ theme }) => theme.spacing.spacing10};
+  font-size: ${({ theme }) => theme.spacing.spacing6};
   font-weight: bold;
   color: ${({ theme }) => theme.colors.gray1000};
   cursor: pointer;
@@ -35,7 +35,7 @@ export const PlusButton = styled.button`
 `;
 
 export const Message = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.spacing.spacing4};
   font-weight: bold;
   color: ${({ theme }) => theme.colors.gray800};
 `;

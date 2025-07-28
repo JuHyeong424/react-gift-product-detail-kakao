@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ReceiverCurrentState from '@/components/Order/Receiver/ReceiverCurrentState.tsx';
 import ReceiverModal from '@/components/Order/Receiver/ReceiverModal.tsx';
 import {
@@ -19,10 +19,8 @@ interface ReceiverProps {
 }
 
 export default function Receiver({ setCount, receiverForm }: ReceiverProps) {
-  // 모달 상태 제어
   const { modal, setModal } = useReceiverModalControl();
 
-  // form 상태 제어
   const {
     register,
     reset,
@@ -37,6 +35,8 @@ export default function Receiver({ setCount, receiverForm }: ReceiverProps) {
     values,
   } = receiverForm;
 
+  const [submitted, setSubmitted] = useState(submittedRef.current);
+
   // 번호 타당성 검사
   const { isSamePhoneNumber } = useReceiverValidation(values);
 
@@ -44,19 +44,19 @@ export default function Receiver({ setCount, receiverForm }: ReceiverProps) {
   const handleAdd = addHandler(fields.length, append);
   const handleCancle = cancleHandler(beforeRef, reset, setModal);
   const handleOpenModal = openModalHandler(beforeRef, getValues, setModal);
-  const onSubmit = submitHandler(submittedRef, setModal);
+  const onSubmit = submitHandler(submittedRef, setModal, setSubmitted);
 
   // count 세기
   useEffect(() => {
-    if (submittedRef.current) {
-      const total = (submittedRef.current ?? []).reduce((acc, cur) => acc + Number(cur.count), 0);
+    if (submitted) {
+      const total = submitted.reduce((acc, cur) => acc + Number(cur.count), 0);
       setCount(total);
     }
-  }, [submittedRef.current]);
+  }, [setCount, submitted]);
 
   return (
     <>
-      <ReceiverCurrentState openModal={handleOpenModal} submittedRef={submittedRef.current} />
+      <ReceiverCurrentState openModal={handleOpenModal} submittedRef={submitted} />
 
       {modal && (
         <ReceiverModal

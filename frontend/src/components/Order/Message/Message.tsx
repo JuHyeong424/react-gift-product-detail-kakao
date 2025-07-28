@@ -13,7 +13,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 export default function Message() {
   const { control, setValue, trigger } = useFormContext();
   const [image, setImage] = useState<string>(orderMessage[0].imageUrl);
-  const [selectedId, setSelectedId] = useState<string>(String(orderMessage[0].id));
+  const [, setSelectedId] = useState<string>(String(orderMessage[0].id));
 
   useEffect(() => {
     setValue('textMessage', orderMessage[0].defaultTextMessage);
@@ -25,7 +25,7 @@ export default function Message() {
       <ImageWrapper>
         {orderMessage.map((item) => (
           <MessageImage
-            key={selectedId}
+            key={item.id}
             src={item.thumbUrl}
             alt={item.defaultTextMessage}
             onClick={() => {

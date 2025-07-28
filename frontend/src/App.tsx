@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
-import Home from '@/pages/Home';
 import Login from '@/pages/Login/Login';
 import globalStyle from '@/styles/global';
 import { theme } from '@/styles/theme';
@@ -10,10 +9,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import My from '@/pages/My/My.tsx';
 import Order from '@/pages/Order/Order.tsx';
 import ThemeItems from '@/pages/ThemeItem/ThemeItems.tsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { QueryClientConfig } from '@tanstack/react-query';
+import Home from '@/pages/Home.tsx';
+
+const queryClientConfig: QueryClientConfig = {
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+};
+
+const queryClient = new QueryClient(queryClientConfig);
 
 const App = () => {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
         <BrowserRouter>
@@ -28,7 +40,7 @@ const App = () => {
         </BrowserRouter>
       </ThemeProvider>
       <ToastContainer position="top-center" />
-    </>
+    </QueryClientProvider>
   );
 };
 

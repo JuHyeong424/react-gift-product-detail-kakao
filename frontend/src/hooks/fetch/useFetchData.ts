@@ -1,37 +1,32 @@
-import { useEffect, useState } from 'react';
-import axios, { AxiosError } from 'axios';
-import * as qs from 'qs';
+import { useSuspenseQuery, type QueryKey } from '@tanstack/react-query';
+import axios, { isAxiosError } from 'axios';
 import { DEFAULT_ERROR_MESSAGE } from '@/constants/errorMessage.ts';
 
-export default function useFetchData<T>(url: string, params?: Record<string, any>) {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [statusCode, setStatusCode] = useState<number | null>(null);
+interface FetchResponse<T> {
+  data: T;
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
+export default function useFetchData<T, P = Record<string, unknown>>(
+  key: QueryKey,
+  url: string,
+  params?: P,
+) {
+  return useSuspenseQuery<FetchResponse<T>, Error>({
+    queryKey: [key, params],
+    queryFn: async () => {
       try {
         const res = await axios.get<{ data: T }>(url, { params });
-        setData(res.data.data);
+        return {
+          data: res.data.data,
+        };
       } catch (e) {
-        const error = e as AxiosError<{ message: string }>;
-        setStatusCode(error.response?.status || null);
-        const errorMessage =
-          error.response?.data?.data.message || DEFAULT_ERROR_MESSAGE;
-        setError(errorMessage);
-      } finally {
-        setLoading(false);
+        if (isAxiosError(e)) {
+          const errorMessage = e.response?.data?.message || DEFAULT_ERROR_MESSAGE;
+          throw new Error(errorMessage);
+        }
+        throw new Error(DEFAULT_ERROR_MESSAGE);
       }
-    };
-
-    fetchData();
-  }, [url, qs.stringify(params)]); // 객체를 문자열로 변환하여 내용이 동일하면 감지x
-
-  return {
-    data,
-    loading,
-    error,
-    statusCode,
-  };
+    },
+    staleTime: 1000 * 60 * 5,
+  });
 }

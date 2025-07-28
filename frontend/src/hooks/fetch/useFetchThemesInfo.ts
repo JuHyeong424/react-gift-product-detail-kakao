@@ -1,22 +1,16 @@
 import useFetchData from '@/hooks/fetch/useFetchData.ts';
 import { THEMES_INFO } from '@/api/api.ts';
+import type { ThemeInfo } from '@/types/themes/types.ts';
 
-interface ThemeInfo {
-  themeId: number;
-  name: string;
-  title: string;
-  description: string;
-  backgroundColor: string;
+interface UseFetchThemesInfoResult {
+  themeInfo?: ThemeInfo;
 }
 
-export default function useFetchThemesInfo(themesId: number) {
+export default function useFetchThemesInfo(themesId: number): UseFetchThemesInfoResult {
   const url = THEMES_INFO(themesId);
-  const { data: themeInfo, loading, error, statusCode } = useFetchData<ThemeInfo>(url);
+  const { data } = useFetchData<ThemeInfo>(['themesInfo', themesId], url);
 
   return {
-    themeInfo,
-    loading,
-    error,
-    statusCode,
+    themeInfo: data?.data,
   };
 }

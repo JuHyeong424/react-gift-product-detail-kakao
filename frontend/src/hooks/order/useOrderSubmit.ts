@@ -5,9 +5,11 @@ import { PATH } from '@/constants/path';
 import order from '@/api/order';
 import { renderOrderSuccessToast } from '@/utils/toastContents';
 import type { OrderRequest } from '@/api/order';
+import { useMutation } from '@tanstack/react-query';
+import type { SelectedItemInfo } from '@/types/order/types.ts';
 
 interface UseOrderSubmitParams {
-  product: { id: number; name: string; price: number };
+  product: SelectedItemInfo;
   count: number;
   receiverRef: React.MutableRefObject<{ name: string; phone: string; count: number }[] | null>;
 }
@@ -15,7 +17,29 @@ interface UseOrderSubmitParams {
 export default function useOrderSubmit({ product, count, receiverRef }: UseOrderSubmitParams) {
   const navigate = useNavigate();
 
-  return async (data: any) => {
+  const mutation = useMutation({
+    mutationFn: (orderData: OrderRequest) => order(orderData),
+    onSuccess: (_, variables) => {
+      toast(
+        renderOrderSuccessToast(product.name, count, variables.ordererName, variables.message),
+        {
+          type: 'success',
+          autoClose: 3000,
+          style: { width: '400px' },
+        },
+      );
+      navigate(PATH.HOME);
+    },
+    onError: (error) => {
+      toast.error(error instanceof Error ? error.message : '주문 중 오류가 발생했습니다.');
+    },
+  });
+
+  return async (data: {
+    textMessage: string;
+    senderName: string;
+    messageCardId: string | number;
+  }) => {
     const userInfo = getUserInfo();
     const token = userInfo?.authToken;
 
@@ -44,18 +68,6 @@ export default function useOrderSubmit({ product, count, receiverRef }: UseOrder
       })),
     };
 
-    try {
-      const result = await order(orderData);
-      if (result.data?.success) {
-        toast(renderOrderSuccessToast(product.name, count, senderName, textMessage), {
-          type: 'success',
-          autoClose: 3000,
-          style: { width: '400px' },
-        });
-        navigate(PATH.HOME);
-      }
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : '주문 중 오류가 발생했습니다.');
-    }
+    await mutation.mutateAsync(orderData);
   };
 }

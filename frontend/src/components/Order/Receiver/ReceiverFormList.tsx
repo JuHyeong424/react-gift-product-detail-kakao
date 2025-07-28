@@ -15,18 +15,17 @@ import type {
   UseFormRegister,
 } from 'react-hook-form';
 import type { Receiver } from '@/types/order.ts';
+interface FormData {
+  receiverInfo: Receiver[];
+}
 
 interface Props {
-  fields: FieldArrayWithId<Receiver[], 'id'>[]; // useFieldArray로부터 나오는 필드 배열 타입
-  register: UseFormRegister<{
-    receiverInfo: Receiver[];
-  }>;
-  handleSubmit: UseFormHandleSubmit<{
-    receiverInfo: Receiver[];
-  }>;
-  onSubmit: (data: { receiverInfo: Receiver[] }) => void;
+  fields: FieldArrayWithId<FormData, 'receiverInfo'>[];
+  register: UseFormRegister<FormData>;
+  handleSubmit: UseFormHandleSubmit<FormData>;
+  onSubmit: (data: FormData) => void;
   remove: (index: number) => void;
-  errors: FieldErrors<{ receiverInfo: Receiver[] }>;
+  errors: FieldErrors<FormData>;
   isSamePhoneNumber: (value: string, index: number) => boolean;
   handleCancle: () => void;
 }

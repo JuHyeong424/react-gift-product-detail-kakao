@@ -14,10 +14,12 @@ import { PASSWORD_LENGTH } from '@/constants/password.ts';
 import { login } from '@/api/login.ts';
 import { saveUserInfo } from '@/storage/userInfo.ts';
 import { toast } from 'react-toastify';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const queryClient = useQueryClient();
 
   const {
     email,
@@ -29,20 +31,25 @@ const Login = () => {
     isFormValid,
   } = useLoginForm();
 
-  const handleLogin = async (e) => {
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      saveUserInfo(data);
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+      const fallback = location.state?.from || '/';
+      navigate(fallback);
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isFormValid) return;
 
-    try {
-      const res = await login({ email, password });
-      saveUserInfo(res.data);
-
-      const fallback = location.state?.from || '/';
-      navigate(fallback);
-    } catch (error) {
-      toast.error(error.message);
-    }
+    mutation.mutate({ email, password });
   };
 
   return (

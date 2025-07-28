@@ -6,9 +6,10 @@ export const Section = styled.section`
 `;
 
 export const Title = styled.h2`
-  font-size: 25px;
+  font-size: ${({ theme }) => theme.spacing.spacing6};
   font-weight: bold;
-  margin: 20px 0 20px 12px;
+  margin: ${({ theme }) =>
+    `${theme.spacing.spacing5} 0 ${theme.spacing.spacing5} ${theme.spacing.spacing3}`};
   color: ${({ theme }) => theme.colors.gray900};
 `;
 
@@ -18,34 +19,25 @@ export const ThemeListContainer = styled.div`
   gap: ${({ theme }) => theme.spacing.spacing10};
   width: max-content;
   margin: 0 auto;
-    
+
   @media (max-width: 680px) {
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: ${({ theme }) => theme.spacing.spacing7_5};
   }
 
   @media (max-width: 360px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: ${({ theme }) => theme.spacing.spacing5};
   }
 `;
 
 export const YellowBox = styled.div`
   background-color: ${({ theme }) => theme.colors.semantic.brand.kakaoYellow};
-  border-radius: 20px;
+  border-radius: ${({ theme }) => theme.spacing.spacing5};
   padding: ${({ theme }) => theme.spacing.spacing4};
-  margin-top: 30px;
-  font-weight: 600;
-  font-size: 15px;
+  margin-top: ${({ theme }) => theme.spacing.spacing7_5};
+  font-weight: ${({ theme }) => theme.spacing.spacing5};
+  font-size: ${({ theme }) => theme.spacing.spacing4};
   color: ${({ theme }) => theme.colors.gray1000};
   line-height: 1.5;
-`;
-
-export const Loading = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 30px;
-  margin: 40px 0;
 `;

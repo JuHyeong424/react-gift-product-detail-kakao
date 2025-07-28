@@ -6,13 +6,13 @@ export const HeaderWrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 ${({ theme }) => theme.spacing.spacing4};
-  height: 56px;
+  height: ${({ theme }) => theme.spacing.spacing14};
   background-color: ${({ theme }) => theme.colors.gray00};
 `;
 
 export const Icon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: ${({ theme }) => theme.spacing.spacing6};
+  height: ${({ theme }) => theme.spacing.spacing6};
   object-fit: contain;
   cursor: pointer;
 `;

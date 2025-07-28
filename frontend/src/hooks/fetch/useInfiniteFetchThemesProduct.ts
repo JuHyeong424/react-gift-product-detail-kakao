@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { Product } from '@/hooks/fetch/useFetchRanking.ts';
+import type { Product } from '@/types/themes/types.ts';
 
 interface ThemesProduct {
   list: Product[];
@@ -8,48 +8,32 @@ interface ThemesProduct {
   hasMoreList: boolean;
 }
 
+async function fetchThemeProducts({
+  pageParam = 0,
+  queryKey,
+}: {
+  pageParam?: number;
+  queryKey: readonly [string, string];
+}): Promise<ThemesProduct> {
+  const [, url] = queryKey;
+  const response = await axios.get<{ data: ThemesProduct }>(`${url}?cursor=${pageParam}&limit=10`);
+  return response.data.data;
+}
+
 export default function useInfiniteFetchThemesProduct(url: string) {
-  const [list, setList] = useState([]);
-  const [cursor, setCursor] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [statusCode, setStatusCode] = useState<number | null>(null);
-  const isFetchingRef = useRef(false);
+  const { data, fetchNextPage, hasNextPage } = useSuspenseInfiniteQuery({
+    queryKey: ['theme-products', url] as const,
+    queryFn: fetchThemeProducts,
+    getNextPageParam: (lastPage) => (lastPage.hasMoreList ? lastPage.cursor : undefined),
+    staleTime: 1000 * 60 * 5,
+    initialPageParam: 0,
+  });
 
-  const fetchData = useCallback(async () => {
-    if (!hasMore || isFetchingRef.current) return;
-
-    isFetchingRef.current = true;
-    setLoading(true);
-    setError(false);
-
-    try {
-      const res = await axios.get<{ data: ThemesProduct }>(`${url}?cursor=${cursor}&limit=10`);
-      const { list: newItems, cursor: nextCursor, hasMoreList } = res.data.data;
-
-      setList((prev) => [...prev, ...newItems]);
-      setCursor(nextCursor);
-      setHasMore(hasMoreList);
-    } catch (error) {
-      setStatusCode(error.response?.status || null);
-      setError(true);
-    } finally {
-      setLoading(false);
-      isFetchingRef.current = false;
-    }
-  }, [url, cursor, hasMore]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const list = data.pages.flatMap((page) => page.list);
 
   return {
     list,
-    loading,
-    error,
-    hasMore,
-    fetchNextPage: fetchData,
-    statusCode,
+    fetchNextPage,
+    hasMore: hasNextPage ?? false,
   };
 }

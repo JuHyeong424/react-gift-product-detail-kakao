@@ -13,7 +13,7 @@ export default function MessageInput({ value, onChange, error }: Props) {
       <TextArea
         value={value}
         onChange={onChange}
-        isActive={error}
+        isActive={!!error}
         placeholder="메시지를 입력해주세요."
       />
       {error && <ErrorMessage>{error.message}</ErrorMessage>}

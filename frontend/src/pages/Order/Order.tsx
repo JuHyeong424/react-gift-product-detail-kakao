@@ -1,8 +1,7 @@
-
 import ItemInfo from '@/components/Order/ItemInfo/ItemInfo.tsx';
 import Header from '@/components/Header/Header.tsx';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Receiver from '@/components/Order/Receiver/Receiver.tsx';
 import Message from '@/components/Order/Message/Message.tsx';
 import OrderButton from '@/components/Order/OrderButton/OrderButton.tsx';
@@ -16,7 +15,6 @@ import useFetchProductData from '@/hooks/fetch/useFetchProductData.ts';
 import useErrorRedirect from '@/hooks/order/useErrorRedirect.ts';
 
 export default function Order() {
-  const navigate = useNavigate();
   const params = useParams<{ id: string }>();
   const id = Number(params.id);
 
@@ -39,7 +37,7 @@ export default function Order() {
 
   const { product, loading, error } = useFetchProductData(id);
 
-  useErrorRedirect(error);
+  useErrorRedirect(error?.message);
 
   useEffect(() => {
     // 컴포넌트가 마운트(처음 렌더링) 될 때 스크롤을 맨 위로 이동
@@ -54,7 +52,13 @@ export default function Order() {
         <Sender />
         <Receiver setCount={setCount} receiverForm={receiverForm} />
         <ItemInfo product={product} loading={loading} error={error} />
-        <OrderButton product={product} loading={loading} error={error} count={count} receiverForm={receiverForm} />
+        <OrderButton
+          product={product}
+          loading={loading}
+          error={error}
+          count={count}
+          receiverForm={receiverForm}
+        />
       </FormProvider>
     </Wrapper>
   );

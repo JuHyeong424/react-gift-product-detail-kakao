@@ -1,36 +1,14 @@
-
 import { RANKING_URL } from '@/api/api.ts';
 import useFetchData from '@/hooks/fetch/useFetchData.ts';
-
-export interface Product {
-  id: string | number;
-  name: string;
-  price: {
-    basicPrice: string | number;
-    sellingPrice: string;
-    discountRate: string | number;
-  };
-  imageURL: string;
-  brandInfo: {
-    id: string | number;
-    name: string;
-    imageURL: string;
-  };
-}
+import type { Product } from '@/types/themes/types.ts';
 
 export default function useFetchRanking(targetType: string, rankType: string) {
-  const {
-    data: ranking,
-    loading,
-    error,
-  } = useFetchData<Product>(RANKING_URL, {
+  const { data } = useFetchData<Product>(['ranking', targetType, rankType], RANKING_URL, {
     targetType,
     rankType,
   });
 
   return {
-    ranking,
-    loading,
-    error,
+    ranking: data?.data,
   };
 }

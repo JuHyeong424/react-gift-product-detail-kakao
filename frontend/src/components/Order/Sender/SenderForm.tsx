@@ -3,7 +3,7 @@ import { SenderInput, SendError, SendInfo } from '@/components/Order/Sender/Send
 interface Props {
   value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-  error?: { message?: string };
+  error?: { message?: string } | boolean;
 }
 
 export default function SenderForm({ value, onChange, error }: Props) {
@@ -13,9 +13,9 @@ export default function SenderForm({ value, onChange, error }: Props) {
         value={value}
         onChange={onChange}
         placeholder="이름을 입력하세요."
-        isActive={error}
+        isActive={Boolean(error)}
       />
-      {error ? (
+      {typeof error === 'object' && error !== null ? (
         <SendError>{error.message}</SendError>
       ) : (
         <SendInfo>* 실제 선물 발송 시 발신자이름으로 반영되는 정보입니다.</SendInfo>
