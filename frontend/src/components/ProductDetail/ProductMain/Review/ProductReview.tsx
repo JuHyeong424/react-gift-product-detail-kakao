@@ -1,9 +1,3 @@
 export default function ProductReview() {
-
-
-  return (
-    <>
-      리뷰
-    </>
-  )
+  return <>리뷰</>;
 }

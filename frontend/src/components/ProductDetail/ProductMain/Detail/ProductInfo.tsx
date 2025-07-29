@@ -1,6 +1,5 @@
 import {
   InfoName,
-  InfoValue,
   InfoWrapper,
   ProductInfoWrapper,
 } from '@/components/ProductDetail/ProductMain/Detail/ProductInfo.style.ts';
@@ -23,7 +22,7 @@ export default function ProductInfo({ announcements }: ProductDetailInfoProps) {
       {sorted.map((item) => (
         <InfoWrapper>
           <InfoName>{item.name}</InfoName>
-          <InfoValue>{item.value}</InfoValue>
+          <div>{item.value}</div>
         </InfoWrapper>
       ))}
     </ProductInfoWrapper>

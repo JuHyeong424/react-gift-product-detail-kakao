@@ -5,7 +5,12 @@ import Loading from '@/components/Common/Loading/Loading.tsx';
 import { Suspense } from 'react';
 import useFetchProductDetail from '@/hooks/fetch/useFetchProductDetail.ts';
 
-export default function ProductTab({ selectedTab, productId }) {
+interface ProductTabProps {
+  selectedTab: string;
+  productId: number;
+}
+
+export default function ProductTab({ selectedTab, productId }: ProductTabProps) {
   const { data, announcements } = useFetchProductDetail(productId);
 
   return (
@@ -13,7 +18,7 @@ export default function ProductTab({ selectedTab, productId }) {
       <Suspense fallback={<Loading />}>
         {selectedTab === '상품설명' && <ProductDescription data={data} />}
         {selectedTab === '선물후기' && <ProductReview />}
-        {selectedTab === '상세정보' && <ProductInfo announcements={announcements}/>}
+        {selectedTab === '상세정보' && <ProductInfo announcements={announcements} />}
       </Suspense>
     </>
   );

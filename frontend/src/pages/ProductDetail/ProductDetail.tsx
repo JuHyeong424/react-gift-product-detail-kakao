@@ -8,7 +8,11 @@ import ProductHead from '@/components/ProductDetail/ProductHead.tsx';
 import Loading from '@/components/Common/Loading/Loading.tsx';
 import ProductTab from '@/components/ProductDetail/ProductMain/ProductTab.tsx';
 import { productTabs } from '@/constants/productTab.ts';
-import { ProductDetailWrapper, ProductTabButton, TabButtonWrapper } from '@/pages/ProductDetail/ProductDetail.style.ts';
+import {
+  ProductDetailWrapper,
+  ProductTabButton,
+  TabButtonWrapper,
+} from '@/pages/ProductDetail/ProductDetail.style.ts';
 
 export default function ProductDetail() {
   const navigate = useNavigate();

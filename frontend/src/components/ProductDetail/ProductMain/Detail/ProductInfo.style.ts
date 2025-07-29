@@ -12,7 +12,3 @@ export const InfoName = styled.div`
   padding: ${({ theme }) => ` ${theme.spacing.spacing2} ${theme.spacing.spacing0}`};
   font-weight: bold;
 `;
-
-export const InfoValue = styled.div`
-
-`;
