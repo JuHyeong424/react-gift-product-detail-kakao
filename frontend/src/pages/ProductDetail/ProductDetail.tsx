@@ -1,16 +1,16 @@
-import { Suspense } from 'react';
-import Loading from '@/components/Common/Loading/Loading.tsx';
-import Header from '@/components/Header/Header.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
+import Header from '@/components/Header/Header.tsx';
 import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
-import ThemeItemsContent from '@/components/GiftTheme/ThemeItem/ThemeItemsContent.tsx';
 import { PATH } from '@/constants/path.ts';
 import { ERROR404 } from '@/constants/errorCode.ts';
+import { Suspense } from 'react';
+import ProductHead from '@/components/ProductDetail/ProductHead.tsx';
+import Loading from '@/components/Common/Loading/Loading.tsx';
 
-export default function ThemeItems() {
+export default function ProductDetail() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const themeId = Number(id);
+  const productId = Number(id);
 
   return (
     <>
@@ -23,7 +23,7 @@ export default function ThemeItems() {
         }}
       >
         <Suspense fallback={<Loading />}>
-          <ThemeItemsContent themeId={themeId} />
+          <ProductHead productId={productId} />
         </Suspense>
       </ErrorBoundary>
     </>
