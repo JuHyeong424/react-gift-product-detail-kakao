@@ -3,16 +3,7 @@ import {
   InfoWrapper,
   ProductInfoWrapper,
 } from '@/components/ProductDetail/ProductMain/Detail/ProductInfo.style.ts';
-
-interface Announcement {
-  name: string;
-  value: string;
-  displayOrder: number;
-}
-
-interface ProductDetailInfoProps {
-  announcements: Announcement[];
-}
+import type { ProductDetailInfoProps } from '@/types/products/detail/infoTypes.ts';
 
 export default function ProductInfo({ announcements }: ProductDetailInfoProps) {
   const sorted = [...announcements].sort((a, b) => a.displayOrder - b.displayOrder);
@@ -20,7 +11,7 @@ export default function ProductInfo({ announcements }: ProductDetailInfoProps) {
   return (
     <ProductInfoWrapper>
       {sorted.map((item) => (
-        <InfoWrapper>
+        <InfoWrapper key={item.name}>
           <InfoName>{item.name}</InfoName>
           <div>{item.value}</div>
         </InfoWrapper>

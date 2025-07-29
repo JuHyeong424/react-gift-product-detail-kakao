@@ -1,4 +1,4 @@
-import useFetchProductData from '@/hooks/fetch/useFetchProductData.tsx';
+import useFetchProductData from '@/hooks/fetch/useFetchProductData.ts';
 import {
   BrandImage,
   BrandWrapper,

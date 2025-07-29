@@ -6,12 +6,6 @@ export interface ThemeInfo {
   backgroundColor: string;
 }
 
-export interface UseFetchThemesInfoResult {
-  themeInfo?: ThemeInfo;
-  error?: Error | null;
-  statusCode?: number;
-}
-
 export interface Product {
   id: string | number;
   name: string;

@@ -24,3 +24,5 @@ export const THEMES_PRODUCTS = (themesId: number) => `${BASE_URL}/themes/${theme
 export const PRODUCT_URL = (id: number) => `${BASE_URL}/products/${id}`;
 
 export const PRODUCT_DETAIL_URL = (id: number) => `${BASE_URL}/products/${id}/detail`;
+
+export const PRODUCT_REVIEW_URL = (id: number) => `${BASE_URL}/products/${id}/highlight-review`;
