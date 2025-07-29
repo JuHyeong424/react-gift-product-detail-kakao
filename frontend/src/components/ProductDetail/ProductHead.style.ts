@@ -1,12 +1,17 @@
 import styled from '@emotion/styled';
 
 export const ProductHeadWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   background-color: ${({ theme }) => theme.colors.gray00};
   padding: ${({ theme }) => ` ${theme.spacing.spacing0} ${theme.spacing.spacing5}`};
 `;
 
 export const ProductImage = styled.img`
-  display: flex;
+  max-width: 100%;
+  height: auto;
+  display: block;
   margin: 0 auto;
 `;
 
