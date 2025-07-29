@@ -26,3 +26,5 @@ export const PRODUCT_URL = (id: number) => `${BASE_URL}/products/${id}`;
 export const PRODUCT_DETAIL_URL = (id: number) => `${BASE_URL}/products/${id}/detail`;
 
 export const PRODUCT_REVIEW_URL = (id: number) => `${BASE_URL}/products/${id}/highlight-review`;
+
+export const PRODUCT_WISH_URL = (id: number) => `${BASE_URL}/products/${id}/wish`;

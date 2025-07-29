@@ -3,7 +3,7 @@ import Header from '@/components/Header/Header.tsx';
 import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
 import { PATH } from '@/constants/path.ts';
 import { ERROR404 } from '@/constants/errorCode.ts';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import ProductHead from '@/components/ProductDetail/ProductHead.tsx';
 import Loading from '@/components/Common/Loading/Loading.tsx';
 import ProductTab from '@/components/ProductDetail/ProductMain/ProductTab.tsx';
@@ -13,12 +13,18 @@ import {
   ProductTabButton,
   TabButtonWrapper,
 } from '@/pages/ProductDetail/ProductDetail.style.ts';
+import ProductOrderButton from '@/components/ProductDetail/ProductOrderButton.tsx';
 
 export default function ProductDetail() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
   const [selectedTab, setSelectedTab] = useState<string>(productTabs[0]);
+
+  useEffect(() => {
+    // 컴포넌트가 마운트(처음 렌더링) 될 때 스크롤을 맨 위로 이동
+    window.scrollTo({ top: 0 });
+  }, []);
 
   return (
     <>
@@ -48,6 +54,8 @@ export default function ProductDetail() {
           </TabButtonWrapper>
           <ProductTab selectedTab={selectedTab} productId={productId} />
         </ProductDetailWrapper>
+
+        <ProductOrderButton productId={productId} />
       </ErrorBoundary>
     </>
   );
