@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
 import ThemeItemsContent from '@/components/GiftTheme/ThemeItem/ThemeItemsContent.tsx';
 import { PATH } from '@/constants/path.ts';
-import { ERROR404 } from '@/constants/errorCode.ts';
+import { AxiosError, HttpStatusCode } from 'axios';
 
 export default function ThemeItems() {
   const navigate = useNavigate();
@@ -17,8 +17,10 @@ export default function ThemeItems() {
       <Header />
       <ErrorBoundary
         onError={(error) => {
-          if (error.message.includes(ERROR404)) {
-            navigate(`${PATH.HOME}`);
+          const axiosError = error as AxiosError;
+
+          if (axiosError.response?.status === HttpStatusCode.NotFound) {
+            navigate(PATH.HOME);
           }
         }}
       >

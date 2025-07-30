@@ -2,7 +2,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Header from '@/components/Header/Header.tsx';
 import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
 import { PATH } from '@/constants/path.ts';
-import { ERROR404 } from '@/constants/errorCode.ts';
 import { Suspense, useEffect, useState } from 'react';
 import ProductHead from '@/components/ProductDetail/ProductHead.tsx';
 import Loading from '@/components/Common/Loading/Loading.tsx';
@@ -14,6 +13,7 @@ import {
   TabButtonWrapper,
 } from '@/pages/ProductDetail/ProductDetail.style.ts';
 import ProductOrderButton from '@/components/ProductDetail/ProductOrderButton.tsx';
+import { AxiosError, HttpStatusCode } from 'axios';
 
 export default function ProductDetail() {
   const navigate = useNavigate();
@@ -31,8 +31,10 @@ export default function ProductDetail() {
       <Header />
       <ErrorBoundary
         onError={(error) => {
-          if (error.message.includes(ERROR404)) {
-            navigate(`${PATH.HOME}`);
+          const axiosError = error as AxiosError;
+
+          if (axiosError.response?.status === HttpStatusCode.NotFound) {
+            navigate(PATH.HOME);
           }
         }}
       >
