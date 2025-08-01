@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeAll, afterAll, afterEach, describe, test, expect } from 'vitest';
 import { http, HttpResponse } from 'msw';
@@ -9,8 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@emotion/react';
 import GiftRanking from '../GiftRanking';
 import { theme } from '@/styles/theme';
-
-const BASE_URL = 'http://localhost:3000/api';
+import { BASE_URL } from '@/api/api';
 
 const mockRanking = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
@@ -33,7 +32,6 @@ const server = setupServer(
     const url = new URL(request.url);
     const targetType = url.searchParams.get('targetType');
     const rankType = url.searchParams.get('rankType');
-
     if (targetType === 'ALL' && rankType === 'MANY_WISH') {
       return HttpResponse.json({ data: mockRanking });
     }
@@ -47,12 +45,7 @@ afterAll(() => server.close());
 
 function createTestQueryClient() {
   return new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-        staleTime: Infinity,
-      },
-    },
+    defaultOptions: { queries: { retry: false, staleTime: Infinity } },
   });
 }
 
@@ -73,9 +66,7 @@ describe('<GiftRanking /> tests (msw http.get + vitest)', () => {
     renderWithProviders(<GiftRanking />);
 
     await waitFor(() => expect(screen.getByRole('img', { name: /상품 1/ })).toBeInTheDocument());
-
     expect(screen.getByText('브랜드 1')).toBeInTheDocument();
-
     expect(screen.getByRole('button', { name: /더보기/ })).toBeInTheDocument();
   });
 
@@ -83,7 +74,6 @@ describe('<GiftRanking /> tests (msw http.get + vitest)', () => {
     renderWithProviders(<GiftRanking />);
 
     await waitFor(() => expect(screen.getByRole('img', { name: /상품 1/ })).toBeInTheDocument());
-
     expect(screen.getAllByRole('img', { name: /상품/ }).length).toBe(6);
 
     await userEvent.click(screen.getByRole('button', { name: /더보기/ }));
