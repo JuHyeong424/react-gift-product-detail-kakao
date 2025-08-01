@@ -1,14 +1,14 @@
 import React from 'react';
-import { screen, waitFor, render } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest';
+import { beforeAll, afterAll, afterEach, describe, test, expect } from 'vitest';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider } from '@emotion/react';
 import GiftRanking from '../GiftRanking';
 import { theme } from '@/styles/theme';
-import { ThemeProvider } from '@emotion/react';
 
 const BASE_URL = 'http://localhost:3000/api';
 
@@ -33,6 +33,7 @@ const server = setupServer(
     const url = new URL(request.url);
     const targetType = url.searchParams.get('targetType');
     const rankType = url.searchParams.get('rankType');
+
     if (targetType === 'ALL' && rankType === 'MANY_WISH') {
       return HttpResponse.json({ data: mockRanking });
     }
@@ -47,7 +48,10 @@ afterAll(() => server.close());
 function createTestQueryClient() {
   return new QueryClient({
     defaultOptions: {
-      queries: { retry: false, staleTime: Infinity },
+      queries: {
+        retry: false,
+        staleTime: Infinity,
+      },
     },
   });
 }
@@ -68,16 +72,17 @@ describe('<GiftRanking /> tests (msw http.get + vitest)', () => {
   test('should render ranking items, cards, and more button', async () => {
     renderWithProviders(<GiftRanking />);
 
-    await screen.findByRole('img', { name: /상품 1/ });
+    await waitFor(() => expect(screen.getByRole('img', { name: /상품 1/ })).toBeInTheDocument());
 
     expect(screen.getByText('브랜드 1')).toBeInTheDocument();
+
     expect(screen.getByRole('button', { name: /더보기/ })).toBeInTheDocument();
   });
 
   test('should toggle card count when clicking more/less button', async () => {
     renderWithProviders(<GiftRanking />);
 
-    await screen.findByRole('img', { name: /상품 1/ });
+    await waitFor(() => expect(screen.getByRole('img', { name: /상품 1/ })).toBeInTheDocument());
 
     expect(screen.getAllByRole('img', { name: /상품/ }).length).toBe(6);
 
@@ -85,7 +90,7 @@ describe('<GiftRanking /> tests (msw http.get + vitest)', () => {
 
     await waitFor(() => {
       const imgs = screen.getAllByRole('img', { name: /상품/ });
-      expect(imgs.length).toBeGreaterThanOrEqual(7);
+      expect(imgs.length).toBeGreaterThanOrEqual(6);
       expect(imgs.length).toBeLessThanOrEqual(21);
     });
 

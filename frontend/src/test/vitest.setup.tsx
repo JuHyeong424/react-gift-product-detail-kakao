@@ -5,15 +5,13 @@ import type { RenderOptions, RenderResult } from '@testing-library/react';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '@/styles/theme';
 import type { ReactElement, ReactNode } from 'react';
+import '@testing-library/jest-dom';
 
 export { expect };
 
-type KnownEnv = Record<string, unknown>;
-const currentEnv: KnownEnv = (import.meta as unknown as { env?: KnownEnv }).env ?? {};
-
 Object.defineProperty(import.meta, 'env', {
   value: {
-    ...currentEnv,
+    ...import.meta.env,
     VITE_BASE_URL: 'http://localhost:3000/api',
   },
 });
