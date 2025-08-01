@@ -9,6 +9,13 @@ import { ThemeProvider } from '@emotion/react';
 import GiftRanking from '../GiftRanking';
 import { theme } from '@/styles/theme';
 
+Object.defineProperty(import.meta, 'env', {
+  value: {
+    ...import.meta.env,
+    VITE_BASE_URL: 'http://localhost:3000/api',
+  },
+});
+
 const BASE_URL = 'http://localhost:3000/api';
 
 const mockRanking = Array.from({ length: 20 }, (_, i) => ({
@@ -46,10 +53,7 @@ afterAll(() => server.close());
 function createTestQueryClient() {
   return new QueryClient({
     defaultOptions: {
-      queries: {
-        retry: false,
-        staleTime: Infinity,
-      },
+      queries: { retry: false, staleTime: Infinity },
     },
   });
 }
@@ -70,7 +74,7 @@ describe('<GiftRanking /> tests (msw http.get + vitest)', () => {
   test('should render ranking items, cards, and more button', async () => {
     renderWithProviders(<GiftRanking />);
 
-    await waitFor(() => expect(screen.getByText(/상품 1/)).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByRole('img', { name: /상품 1/ })).toBeInTheDocument());
 
     expect(screen.getByText('브랜드 1')).toBeInTheDocument();
 
@@ -80,20 +84,20 @@ describe('<GiftRanking /> tests (msw http.get + vitest)', () => {
   test('should toggle card count when clicking more/less button', async () => {
     renderWithProviders(<GiftRanking />);
 
-    await waitFor(() => expect(screen.getByText(/상품 1/)).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByRole('img', { name: /상품 1/ })).toBeInTheDocument());
 
-    expect(screen.getAllByText(/상품/).length).toBe(6);
+    expect(screen.getAllByRole('img', { name: /상품/ }).length).toBe(6);
 
     fireEvent.click(screen.getByRole('button', { name: /더보기/ }));
 
     await waitFor(() => {
-      const count = screen.getAllByText(/상품/).length;
+      const count = screen.getAllByRole('img', { name: /상품/ }).length;
       expect(count).toBeGreaterThanOrEqual(6);
       expect(count).toBeLessThanOrEqual(21);
     });
 
     fireEvent.click(screen.getByRole('button', { name: /접기/ }));
 
-    expect(screen.getAllByText(/상품/).length).toBe(6);
+    expect(screen.getAllByRole('img', { name: /상품/ }).length).toBe(6);
   });
 });
