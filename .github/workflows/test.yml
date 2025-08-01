@@ -12,6 +12,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # PR 소스 브랜치가 'next-step:juhyeong424' 인 경우에만 실행
+    if: github.event_name == 'pull_request' && github.head_ref == 'next-step:juhyeong424'
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

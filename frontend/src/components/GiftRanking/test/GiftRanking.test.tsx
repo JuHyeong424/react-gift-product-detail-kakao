@@ -1,63 +1,99 @@
-import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
-import GiftRanking from '@/components/GiftRanking/GiftRanking';
-import { RANKING_URL } from '@/api/api';
-import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
+import React from 'react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest';
+import { http, HttpResponse } from 'msw';
+import { setupServer } from 'msw/node';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@emotion/react';
+import GiftRanking from '../GiftRanking';
 import { theme } from '@/styles/theme';
-import mockRankingData from '@/components/GiftRanking/test/mockRankingData';
 
-import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
-import { setupServer } from 'msw/node';
+const BASE_URL = 'http://localhost:3000/api';
+
+const mockRanking = Array.from({ length: 20 }, (_, i) => ({
+  id: i + 1,
+  name: `상품 ${i + 1}`,
+  imageURL: `https://mock.com/image${i + 1}.jpg`,
+  price: {
+    basicPrice: 1000 * (i + 1),
+    sellingPrice: 1000 * (i + 1),
+    discountRate: i,
+  },
+  brandInfo: {
+    id: i + 1,
+    name: `브랜드 ${i + 1}`,
+    imageURL: `https://mock.com/brandInfoimage${i + 1}.jpg`,
+  },
+}));
 
 const server = setupServer(
-  rest.get(RANKING_URL, (req: RestRequest, res: ResponseComposition<never>, ctx: RestContext) => {
-    return res(ctx.status(200), ctx.json(mockRankingData));
+  http.get(`${BASE_URL}/products/ranking`, ({ request }) => {
+    const url = new URL(request.url);
+    const targetType = url.searchParams.get('targetType');
+    const rankType = url.searchParams.get('rankType');
+    if (targetType === 'ALL' && rankType === 'MANY_WISH') {
+      return HttpResponse.json({ data: mockRanking });
+    }
+    return HttpResponse.json({ data: [] });
   }),
 );
 
-const queryClient = new QueryClient();
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
-const renderWithProviders = () =>
-  render(
+function createTestQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+        staleTime: Infinity,
+      },
+    },
+  });
+}
+
+function renderWithProviders(ui: React.ReactElement) {
+  const queryClient = createTestQueryClient();
+
+  return render(
     <MemoryRouter>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          <ErrorBoundary fallback={<div>에러 발생</div>}>
-            <GiftRanking />
-          </ErrorBoundary>
-        </ThemeProvider>
+        <ThemeProvider theme={theme}>{ui}</ThemeProvider>
       </QueryClientProvider>
     </MemoryRouter>,
   );
+}
 
-describe('GiftRanking Component', () => {
-  beforeAll(() => server.listen());
-  afterEach(() => {
-    server.resetHandlers();
-    queryClient.clear();
-  });
-  afterAll(() => server.close());
+describe('<GiftRanking /> tests (msw http.get + vitest)', () => {
+  test('should render ranking items, cards, and more button', async () => {
+    renderWithProviders(<GiftRanking />);
 
-  it('Verifies that the first item is rendered correctly', async () => {
-    renderWithProviders();
+    await waitFor(() => expect(screen.getByText(/상품 1/)).toBeInTheDocument());
 
-    const firstItemName = mockRankingData[0].name;
-    const item = await screen.findByText(new RegExp(firstItemName, 'i'));
-    expect(item).toBeInTheDocument();
+    expect(screen.getByText('브랜드 1')).toBeInTheDocument();
+
+    expect(screen.getByRole('button', { name: /더보기/ })).toBeInTheDocument();
   });
 
-  it('changes button text after clicking "Load More" button', async () => {
-    renderWithProviders();
+  test('should toggle card count when clicking more/less button', async () => {
+    renderWithProviders(<GiftRanking />);
 
-    const button = await screen.findByRole('button', { name: /더보기/i });
-    expect(button).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText(/상품 1/)).toBeInTheDocument());
 
-    fireEvent.click(button);
+    expect(screen.getAllByText(/상품/).length).toBe(6);
 
-    const changedText = await screen.findByText(/접기/i);
-    expect(changedText).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /더보기/ }));
+
+    await waitFor(() => {
+      const count = screen.getAllByText(/상품/).length;
+      expect(count).toBeGreaterThanOrEqual(6);
+      expect(count).toBeLessThanOrEqual(21);
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /접기/ }));
+
+    expect(screen.getAllByText(/상품/).length).toBe(6);
   });
 });
