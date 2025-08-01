@@ -1,7 +1,11 @@
 {
   "name": "react-gift-monorepo",
   "private": true,
-  "workspaces": ["frontend", "backend", "react-gift-mock-server"],
+  "workspaces": [
+    "frontend",
+    "backend",
+    "react-gift-mock-server"
+  ],
   "scripts": {
     "dev": "concurrently \"npm --workspace frontend run dev\" \"npm --workspace backend run dev\" \"npm --workspace react-gift-mock-server run start:dev\"",
     "lint": "npm run lint:frontend && npm run lint:backend && npm run lint:mock",

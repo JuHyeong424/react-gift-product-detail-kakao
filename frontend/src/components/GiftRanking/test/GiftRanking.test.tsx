@@ -1,13 +1,22 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import GiftRanking from '../GiftRanking';
+import GiftRanking from '@/components/GiftRanking/GiftRanking';
 import { RANKING_URL } from '@/api/api';
 import { ErrorBoundary } from '@/components/Common/ErrorBoundary.tsx';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '@/styles/theme';
-import mockRankingData from './mockRankingData';
+import mockRankingData from '@/components/GiftRanking/test/mockRankingData';
+
+import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
+import { setupServer } from 'msw/node';
+
+const server = setupServer(
+  rest.get(RANKING_URL, (req: RestRequest, res: ResponseComposition<never>, ctx: RestContext) => {
+    return res(ctx.status(200), ctx.json(mockRankingData));
+  }),
+);
 
 const queryClient = new QueryClient();
 
@@ -24,38 +33,15 @@ const renderWithProviders = () =>
     </MemoryRouter>,
   );
 
-describe('GiftRanking Component (fetch mocked with mockRankingData)', () => {
-  beforeEach(() => {
-    vi.restoreAllMocks();
+describe('GiftRanking Component', () => {
+  beforeAll(() => server.listen());
+  afterEach(() => {
+    server.resetHandlers();
     queryClient.clear();
   });
+  afterAll(() => server.close());
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
-  it('renders ranking data correctly', async () => {
-    vi.stubGlobal('fetch', (input: RequestInfo) => {
-      let url: string;
-      if (typeof input === 'string') {
-        url = input;
-      } else if (input instanceof Request) {
-        url = input.url;
-      } else {
-        url = '';
-      }
-
-      if (url.includes(RANKING_URL)) {
-        return Promise.resolve(
-          new Response(JSON.stringify(mockRankingData), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' },
-          }),
-        );
-      }
-      return Promise.reject(new Error(`unexpected fetch to ${url}`));
-    });
-
+  it('Verifies that the first item is rendered correctly', async () => {
     renderWithProviders();
 
     const firstItemName = mockRankingData[0].name;
@@ -64,27 +50,6 @@ describe('GiftRanking Component (fetch mocked with mockRankingData)', () => {
   });
 
   it('changes button text after clicking "Load More" button', async () => {
-    vi.stubGlobal('fetch', (input: RequestInfo) => {
-      let url: string;
-      if (typeof input === 'string') {
-        url = input;
-      } else if (input instanceof Request) {
-        url = input.url;
-      } else {
-        url = '';
-      }
-
-      if (url.includes(RANKING_URL)) {
-        return Promise.resolve(
-          new Response(JSON.stringify(mockRankingData), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' },
-          }),
-        );
-      }
-      return Promise.reject(new Error(`unexpected fetch to ${url}`));
-    });
-
     renderWithProviders();
 
     const button = await screen.findByRole('button', { name: /더보기/i });
