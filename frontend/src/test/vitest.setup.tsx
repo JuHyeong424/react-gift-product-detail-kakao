@@ -8,6 +8,16 @@ import type { ReactElement, ReactNode } from 'react';
 
 export { expect };
 
+type KnownEnv = Record<string, unknown>;
+const currentEnv: KnownEnv = (import.meta as unknown as { env?: KnownEnv }).env ?? {};
+
+Object.defineProperty(import.meta, 'env', {
+  value: {
+    ...currentEnv,
+    VITE_BASE_URL: 'http://localhost:3000/api',
+  },
+});
+
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>): RenderResult => {
   return render(ui, {
     wrapper: ({ children }: { children?: ReactNode }) => (

@@ -11,7 +11,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'), // 추가
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+  define: {
+    'import.meta.env': {
+      VITE_BASE_URL: 'http://localhost:3000/api',
     },
   },
 });

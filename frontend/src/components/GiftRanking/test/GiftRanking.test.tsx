@@ -1,20 +1,14 @@
 import React from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { screen, waitFor, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from '@emotion/react';
 import GiftRanking from '../GiftRanking';
 import { theme } from '@/styles/theme';
-
-Object.defineProperty(import.meta, 'env', {
-  value: {
-    ...import.meta.env,
-    VITE_BASE_URL: 'http://localhost:3000/api',
-  },
-});
+import { ThemeProvider } from '@emotion/react';
 
 const BASE_URL = 'http://localhost:3000/api';
 
@@ -74,30 +68,28 @@ describe('<GiftRanking /> tests (msw http.get + vitest)', () => {
   test('should render ranking items, cards, and more button', async () => {
     renderWithProviders(<GiftRanking />);
 
-    await waitFor(() => expect(screen.getByRole('img', { name: /상품 1/ })).toBeInTheDocument());
+    await screen.findByRole('img', { name: /상품 1/ });
 
     expect(screen.getByText('브랜드 1')).toBeInTheDocument();
-
     expect(screen.getByRole('button', { name: /더보기/ })).toBeInTheDocument();
   });
 
   test('should toggle card count when clicking more/less button', async () => {
     renderWithProviders(<GiftRanking />);
 
-    await waitFor(() => expect(screen.getByRole('img', { name: /상품 1/ })).toBeInTheDocument());
+    await screen.findByRole('img', { name: /상품 1/ });
 
     expect(screen.getAllByRole('img', { name: /상품/ }).length).toBe(6);
 
-    fireEvent.click(screen.getByRole('button', { name: /더보기/ }));
+    await userEvent.click(screen.getByRole('button', { name: /더보기/ }));
 
     await waitFor(() => {
-      const count = screen.getAllByRole('img', { name: /상품/ }).length;
-      expect(count).toBeGreaterThanOrEqual(6);
-      expect(count).toBeLessThanOrEqual(21);
+      const imgs = screen.getAllByRole('img', { name: /상품/ });
+      expect(imgs.length).toBeGreaterThanOrEqual(7);
+      expect(imgs.length).toBeLessThanOrEqual(21);
     });
 
-    fireEvent.click(screen.getByRole('button', { name: /접기/ }));
-
+    await userEvent.click(screen.getByRole('button', { name: /접기/ }));
     expect(screen.getAllByRole('img', { name: /상품/ }).length).toBe(6);
   });
 });
