@@ -41,8 +41,8 @@ function WrapperWithValidation() {
   );
 }
 
-describe('Message 컴포넌트 Typography 테스트', () => {
-  it('초기 렌더링 시 첫 번째 메시지 기본값이 설정되어 있어야 한다', () => {
+describe('Message Component Typography Tests', () => {
+  it('should have the first default message on initial render', () => {
     render(<WrapperComponent />);
 
     const firstDefaultText = orderMessage[0].defaultTextMessage;
@@ -51,7 +51,7 @@ describe('Message 컴포넌트 Typography 테스트', () => {
     expect(input).toBeInTheDocument();
   });
 
-  it('썸네일 이미지를 클릭하면 메시지와 이미지가 변경되어야 한다', () => {
+  it('should change message and image when thumbnail is clicked', () => {
     render(<WrapperComponent />);
 
     const secondItem = orderMessage[1];
@@ -68,7 +68,7 @@ describe('Message 컴포넌트 Typography 테스트', () => {
     expect(selectedImage.src).toContain(secondItem.imageUrl);
   });
 
-  it('MessageInput 컴포넌트에 에러가 있을 때 에러가 전달되는지 테스트', async () => {
+  it('should display error message when there is an error in MessageInput component', async () => {
     const { container } = render(<WrapperWithValidation />);
 
     const input = screen.getByRole('textbox') || container.querySelector('input');

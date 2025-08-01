@@ -24,7 +24,7 @@ const renderWithProviders = () =>
     </MemoryRouter>,
   );
 
-describe('GiftRanking 컴포넌트 (mockRankingData로 fetch 목킹)', () => {
+describe('GiftRanking Component (fetch mocked with mockRankingData)', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     queryClient.clear();
@@ -34,7 +34,7 @@ describe('GiftRanking 컴포넌트 (mockRankingData로 fetch 목킹)', () => {
     vi.restoreAllMocks();
   });
 
-  it('랭킹 데이터를 받아 정상적으로 렌더링한다', async () => {
+  it('renders ranking data correctly', async () => {
     vi.stubGlobal('fetch', (input: RequestInfo) => {
       let url: string;
       if (typeof input === 'string') {
@@ -63,7 +63,7 @@ describe('GiftRanking 컴포넌트 (mockRankingData로 fetch 목킹)', () => {
     expect(item).toBeInTheDocument();
   });
 
-  it('더보기 버튼 클릭 시 텍스트가 바뀐다', async () => {
+  it('changes button text after clicking "Load More" button', async () => {
     vi.stubGlobal('fetch', (input: RequestInfo) => {
       let url: string;
       if (typeof input === 'string') {
