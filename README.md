@@ -1,7 +1,9 @@
 # react-gift-product-list
 아래 프로젝트 세팅을 완료한 후, npm run dev로 백엔드를 실행시킨 후, 
 
-배포 사이트 https://react-gift-product-detail-kakao-h3920wu3u-ju-hyeongs-projects.vercel.app/ 
+배포 사이트 
+
+https://react-gift-product-detail-kakao-h3920wu3u-ju-hyeongs-projects.vercel.app/ 
 
 에 접속을 하면 됩니다.
 
