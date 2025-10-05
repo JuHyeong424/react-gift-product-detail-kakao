@@ -33,7 +33,7 @@ local주소/api 추가 (.env.example 참고)
 #
 
 ## backend
-Next.ts
+Nest
 
 ## frontend
 Vite+ts
