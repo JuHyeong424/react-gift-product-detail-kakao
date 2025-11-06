@@ -6,38 +6,49 @@
 
 # 기능
 ## 1. 메인 페이지
-![20251106-1038-07.9075997.gif](..%2F..%2F..%2F..%2FAppData%2FLocal%2FPackages%2FMicrosoft.ScreenSketch_8wekyb3d8bbwe%2FTempState%2FGif%2F20251106-1038-07.9075997.gif)
+<img src="./frontend/public/gif/main.gif" width="300" />
+
 - 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 선물 랭킹 섹션에서는 외부 api를 받아와 정보에 맞는 api를 불러 옵니다.
 
 ## 2. 로그인 페이지
-![20251106-1046-00.8756099.gif](..%2F..%2F..%2F..%2FAppData%2FLocal%2FPackages%2FMicrosoft.ScreenSketch_8wekyb3d8bbwe%2FTempState%2FGif%2F20251106-1046-00.8756099.gif)
+<img src="./frontend/public/gif/login.gif" width="300" />
+
+- 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 비밀번호가 **8글자 미만**이면 경고 메세지가 나타나게 했습니다.
 - kakao.com 이외의 메일을 넣으면 **kakao.com**으로 설정하라는 alert를 띄웠습니다.
 - 경고 메세지는 **react-toastify**를 이용하여 UI를 개선하였습니다.
 - 로그인을 완료하고 나면 메인 페이지의 '선물한 친구를 선택해주세요.' 섹션에 로그인한 나의 이메일의 @ 앞부분이 나타납니다.
 
 ## 3. 선물 테마 페이지
-![20251106-1049-33.5691456.gif](..%2F..%2F..%2F..%2FAppData%2FLocal%2FPackages%2FMicrosoft.ScreenSketch_8wekyb3d8bbwe%2FTempState%2FGif%2F20251106-1049-33.5691456.gif)
+<img src="./frontend/public/gif/giftTheme.gif" width="300" />- 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 원하는 선물 테마를 누르면 해당 테마의 선물 상품을 볼 수 있습니다.
 - 선물 상품은 외부 api를 이용하여 가져왔습니다.
 - useSuspenseInfiniteQuery를 이용해 **무한 스크롤**을 적용하였습니다.
 
 ## 4. 선물 상세 정보 페이지
-![20251106-1055-25.3424907.gif](..%2F..%2F..%2F..%2FAppData%2FLocal%2FPackages%2FMicrosoft.ScreenSketch_8wekyb3d8bbwe%2FTempState%2FGif%2F20251106-1055-25.3424907.gif)
+<img src="./frontend/public/gif/giftDetail.gif" width="300" />
+
+- 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 외부 api에서 해당 상품의 정보를 받아 상세 정보를 볼 수 있습니다.
 - 마음에 드는 상품이면 하트 표시로 저장할 수 있습니다. 하트는 로그아웃하고 로그인해도 그대로 유지됩니다.
 
 ## 5. 선물하기 페이지
-![20251106-1102-04.5912395.gif](..%2F..%2F..%2F..%2FAppData%2FLocal%2FPackages%2FMicrosoft.ScreenSketch_8wekyb3d8bbwe%2FTempState%2FGif%2F20251106-1102-04.5912395.gif)
+<img src="./frontend/public/gif/order1.gif" width="300" />
+
+- 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 외부 api에서 받은 카드를 선택할 수 있습니다.
 - 보내는 사람과 메세지를 수정할 수 있습니다.
 - 작성할 수 있는 곳에서 하나라도 작성하지 않으면 선물할 수 없습니다.
 - 또한, 작성하지 않은 곳 아래에 경고 메세지가 나타납니다.
-![20251106-1104-56.6167662.gif](..%2F..%2F..%2F..%2FAppData%2FLocal%2FPackages%2FMicrosoft.ScreenSketch_8wekyb3d8bbwe%2FTempState%2FGif%2F20251106-1104-56.6167662.gif)
+<img src="./frontend/public/gif/order2.gif" width="300" />
+
+- 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 전화번호 형식이 옳지 않으면 전화 번호에 대한 오류가 발생합니다.
 - 받는 사람을 추가할 수 있으며, 받는 사람과 상품 갯수가 증가할 때마다 총 금액이 늘어납니다.
-![20251106-1107-19.0799490.gif](..%2F..%2F..%2F..%2FAppData%2FLocal%2FPackages%2FMicrosoft.ScreenSketch_8wekyb3d8bbwe%2FTempState%2FGif%2F20251106-1107-19.0799490.gif)
+<img src="./frontend/public/gif/order3.gif" width="300" />
+
+- 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 작성을 완료하면 입력한 내용의 react-toastify alert가 나타납니다.
 
 # 테크 스팩
