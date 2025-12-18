@@ -72,6 +72,8 @@ https://react-gift-product-detail-kakao-h3920wu3u-ju-hyeongs-projects.vercel.app
 - kakao.com 이외의 메일을 넣으면 **kakao.com**으로 설정하라는 alert를 띄웠습니다.
 - 경고 메세지는 **react-toastify**를 이용하여 UI를 개선하였습니다.
 - 로그인을 완료하고 나면 메인 페이지의 '선물한 친구를 선택해주세요.' 섹션에 로그인한 나의 이메일의 @ 앞부분이 나타납니다.
+- 	Context API를 활용하여 로그인 상태 및 사용자 세션 정보를 전역적으로 관리 및 불필요한 Prop Drilling 방지합니다.
+- React Hook Form을 적용하여 비제어 컴포넌트 기반의 폼 상태 관리로 렌더링 성능 최적화
 
 ## 3. 선물 테마 페이지
 <img src="./frontend/public/gif/giftTheme.gif" width="300" />
@@ -80,6 +82,9 @@ https://react-gift-product-detail-kakao-h3920wu3u-ju-hyeongs-projects.vercel.app
 - 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 원하는 선물 테마를 누르면 해당 테마의 선물 상품을 볼 수 있습니다.
 - 선물 상품은 외부 api를 이용하여 가져왔습니다.
+- Axios와 TanStack Query를 이용해 비동기 데이터 상태(Loading/Error/Success)를 체계적으로 관리합니다.
+- React Hooks (useState, useEffect) 훅을 사용하여 데이터 로딩 시점과 UI 상태를 직접 관리하며 React의 라이프사이클을 깊이 있게 학습합니다.
+- MSW(Mock Service Worker)를 활용해 API 모킹 환경을 구축하여 백엔드 의존성 없이 독립적인 기능 개발 및 테스트를 수행합니다.
 - useSuspenseInfiniteQuery를 이용해 **무한 스크롤**을 적용하였습니다.
 
 ## 4. 선물 상세 정보 페이지
@@ -101,6 +106,7 @@ https://react-gift-product-detail-kakao-h3920wu3u-ju-hyeongs-projects.vercel.app
 - 또한, 작성하지 않은 곳 아래에 경고 메세지가 나타납니다.
 <img src="./frontend/public/gif/order2.gif" width="300" />
 
+- 카카오 API를 연동하여 실제 결제 프로세스와 유사한 프로세스를 구현합니다.
 - 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 전화번호 형식이 옳지 않으면 전화 번호에 대한 오류가 발생합니다.
 - 받는 사람을 추가할 수 있으며, 받는 사람과 상품 갯수가 증가할 때마다 총 금액이 늘어납니다.
@@ -108,6 +114,9 @@ https://react-gift-product-detail-kakao-h3920wu3u-ju-hyeongs-projects.vercel.app
 
 - 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 작성을 완료하면 입력한 내용의 react-toastify alert가 나타납니다.
+
+## 6. 테스트 및 품질 관리
+- 	Vitest와 React Testing Library를 사용하여 주요 컴포넌트에 대한 단위 테스트 작성 및 안정성을 확보합니다.
 
 # 회고
 ## 고민 1: 코드의 일관성과 유지보수성
