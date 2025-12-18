@@ -57,8 +57,8 @@ https://react-gift-product-detail-kakao-h3920wu3u-ju-hyeongs-projects.vercel.app
 
 # 기능
 ## 1. 메인 페이지
-<img src="./frontend/public/gif/main.gif" width="300" />
-
+<video src="./frontend/public/video/main.webm" width="360" controls muted playsinline>
+</video>
 - 로그인 페이지, 선물 테마 페이지, 선물 랭킹 페이지로 이동할 수 있게 연결해줍니다.
 - 선물 랭킹 섹션에서는 외부 api를 받아와 정보에 맞는 api를 불러 옵니다.
 
