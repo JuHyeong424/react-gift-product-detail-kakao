@@ -182,3 +182,4 @@ https://www.notion.so/teamsparta/2-2192dc3ef51480708305e47b723e5f90?p=21c2dc3ef5
 4. 선물하기 디테일 구현 - 배포 완료<br>
    깃허브: <br>https://github.com/JuHyeong424/react-gift-product-detail-kakao/tree/step03<br>
    pull request: <br>https://github.com/next-step/react-gift-product-detail/pulls?q=is%3Apr+is%3Aclosed+%EC%9E%A5%EC%A3%BC%ED%98%95
+
